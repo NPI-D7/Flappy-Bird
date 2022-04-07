@@ -1,0 +1,14 @@
+#define STUFF_BGD 0
+#define STUFF_BGN 1
+#define STUFF_GAMEOVER 2
+#define STUFF_GETREADY 3
+#define STUFF_GROUND 4
+#define STUFF_LOGO 5
+#define STUFF_MEDAL1 6
+#define STUFF_MEDAL2 7
+#define STUFF_MEDAL3 8
+#define STUFF_MEDAL4 9
+#define STUFF_NEW 10
+#define STUFF_PIPED 11
+#define STUFF_PIPEU 12
+#define STUFF_SCORES 13

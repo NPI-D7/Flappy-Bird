@@ -1,0 +1,16 @@
+--atlas -f rgba -z auto
+
+stuff/bgd.png
+stuff/bgn.png
+stuff/gameover.png
+stuff/getready.png
+stuff/ground.png
+stuff/logo.png
+stuff/medal1.png
+stuff/medal2.png
+stuff/medal3.png
+stuff/medal4.png
+stuff/new.png
+stuff/piped.png
+stuff/pipeu.png
+stuff/scores.png
