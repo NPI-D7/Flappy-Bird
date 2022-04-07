@@ -19,7 +19,7 @@ Game::Game()
         ground[s].FromSheet(&stuffs, STUFF_GROUND);
     }
     ground[0].SetPos(0, 189);
-    ground[1].SetPos(399, 189);
+    ground[1].SetPos(400, 189);
     ybird.Setup(&ybirds, 4, 0, 0, 20);
     
 }
@@ -35,17 +35,21 @@ void Game::Draw(void) const
     {
         ground[s].Draw();
     }
-    ybird.Play(1);
+    
     ybird.Draw();
 }
 void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
 {
-    for (int s = 0; s < 2; s++)
+    ybird.Play(10);
+    ground[0].SetPos(ground[0].getPosX() -0.5, 189);
+    if (ground[0].getPosX() < -399)
     {
-        ground[s].SetPos(ground[s].getPosX() -0.5, 189);
-        if (ground[s].getPosX() < -399)
-        {
-            ground[s].SetPos(400, 189);
-        }
+        ground[0].SetPos(0, 189);
     }
+    ground[1].SetPos(ground[1].getPosX() -0.5, 189);
+    if (ground[1].getPosX() < 1)
+    {
+        ground[1].SetPos(400, 189);
+    }
+    
 }
