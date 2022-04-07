@@ -1,18 +1,15 @@
 #include "renderd7.hpp"
 #include "TEX.h"
 
-RenderD7::Sheet stuff;
 
 int main()
 {
     RenderD7::Init::Main("Flappy-Bird");
-    stuff.Load("romfs:/gfx/stuff.t3x");
-    RenderD7::Sprite spr;
-    spr.FromSheet(&stuff, STUFF_BGN);
+    
     while (RenderD7::MainLoop())
     {
-        RenderD7::OnScreen(Top);
-        spr.Draw();
+        RenderD7::Scene::doDraw();
+        RenderD7::Scene::doLogic(d7_hDown, d7_hHeld, d7_hUp, d7_touch);
         if (d7_hDown && KEY_START)
         {
             RenderD7::ExitApp();
