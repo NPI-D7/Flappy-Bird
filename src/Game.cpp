@@ -1,6 +1,11 @@
 #include "Game.hpp"
 #include "TEX.h"
 
+RenderD7::Sheet stuffs;
+RenderD7::Sprite bgn;
+RenderD7::Sprite bgd;
+RenderD7::Sprite ground[2];
+
 Game::Game()
 {
     stuffs.Load("romfs:/gfx/stuff.t3x");

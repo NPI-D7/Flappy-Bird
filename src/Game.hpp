@@ -8,9 +8,6 @@ class Game : public RenderD7::Scene
     Game();
     ~Game();
     private:
-    RenderD7::Sheet stuffs;
-    RenderD7::Sprite bgn;
-    RenderD7::Sprite bgd;
-    RenderD7::Sprite ground[2];
+    
     
 };
