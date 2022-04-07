@@ -3,6 +3,7 @@
 int main()
 {
     RenderD7::Init::Main("Flappy-Bird");
+    
     while (RenderD7::MainLoop())
     {
         if (d7_hDown && KEY_START)
