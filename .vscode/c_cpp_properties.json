@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "name": "3DS",
+            "includePath": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/RenderD7/**"
+            ],
+            "intelliSenseMode": "gcc-arm",
+            
+            "cStandard": "c17",
+            "cppStandard": "c++20"
+        }
+    ],
+    "version": 4
+}
