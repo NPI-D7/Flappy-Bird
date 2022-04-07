@@ -16,7 +16,7 @@ Game::Game()
         ground[s].FromSheet(&stuffs, STUFF_GROUND);
     }
     ground[0].SetPos(0, 189);
-    ground[1].SetPos(400, 189);
+    ground[1].SetPos(399, 189);
     
 }
 Game::~Game()
