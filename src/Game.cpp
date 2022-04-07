@@ -45,7 +45,7 @@ void Game::Draw(void) const
 }
 void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
 {
-    ybird.Play(10);
+    ybird.Play(4);
     ground[0].SetPos(ground[0].getPosX() -0.5, 189);
     if (ground[0].getPosX() < -399)
     {
