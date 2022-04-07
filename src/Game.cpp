@@ -37,7 +37,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
     for (int s = 0; s < 2; s++)
     {
         ground[s].SetPos(ground[s].getPosX() -1, 189);
-        if (ground[s].getPosX() < -400)
+        if (ground[s].getPosX() < -399)
         {
             ground[s].SetPos(400, 189);
         }
