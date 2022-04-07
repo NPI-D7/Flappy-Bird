@@ -1,0 +1,3 @@
+[submodule "RenderD7"]
+	path = RenderD7
+	url = https://github.com/NPI-D7/RenderD7.git
