@@ -6,6 +6,7 @@ RenderD7::Sheet ybirds;
 RenderD7::Sprite bgn;
 RenderD7::Sprite bgd;
 RenderD7::Sprite ground[2];
+RenderD7::Sprite bscr;
 RenderD7::SpriteSheetAnimation ybird;
 
 Game::Game()
@@ -21,7 +22,7 @@ Game::Game()
     ground[0].SetPos(0, 189);
     ground[1].SetPos(400, 189);
     ybird.Setup(&ybirds, 4, 0, 0, 20);
-    
+    bscr.FromSheet(&stuffs, STUFF_BOTTOMSCREEN);
 }
 Game::~Game()
 {
@@ -37,6 +38,10 @@ void Game::Draw(void) const
     }
     
     ybird.Draw();
+
+    RenderD7::OnScreen(Bottom);
+    bscr.Draw();
+    RenderD7::DrawTextCentered(0, 210, 1.0f, RenderD7::Color::Hex("#000000"), "Press Start to Exit", 320);
 }
 void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
 {
