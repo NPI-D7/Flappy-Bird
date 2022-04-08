@@ -8,6 +8,7 @@ RenderD7::Sheet stuffs;
 RenderD7::Sheet ybirds;
 RenderD7::Sprite bgn;
 RenderD7::Sprite bgd;
+RenderD7::Sprite board;
 RenderD7::Sprite plays;
 RenderD7::Sprite upipe[5];
 RenderD7::Sprite cpipe[5];
@@ -23,6 +24,8 @@ float birdv = 0;
 
 float birdr = (birdv/5)*128;
 
+float boardposy;
+
 Pipe gpipes[5];
 Pipe cpipes[5];
 
@@ -35,6 +38,7 @@ Game::Game()
     bgn.FromSheet(&stuffs, STUFF_BGN);
     bgd.FromSheet(&stuffs, STUFF_BGD);
     plays.FromSheet(&stuffs, STUFF_GETREADY);
+    board.FromSheet(&stuffs, STUFF_SCORES);
     Num::Load();
     for (int s = 0; s < 2; s++)
     {
@@ -160,11 +164,32 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
             }
             if (birdPOS > 189)
             {
-                birdPOS = 180;
+                birdPOS = 175;
                 playing = false;
                 tot = true;
             }
             
+        }
+        
+    }
+    if (tot)
+    {
+        board.SetPos((400/2) - (board.getWidth()/2), boardposy);
+        if (hDown & KEY_TOUCH)
+        {
+            for(int p = 0; p < 5; p++)
+            {
+                cpipe[p].SetCenter(0, 1.0);
+                gpipes[p].posx = 86*p + 400;
+                gpipes[p].posy = rand() % 80 + 65;
+                cpipes[p].posx = gpipes[p].posx;
+                cpipes[p].posy = gpipes[p].posy - 52;
+            }
+    
+            ground[0].SetPos(0, 189);
+            ground[1].SetPos(400, 189);
+            menu = true;
+            tot = false;
         }
         
     }

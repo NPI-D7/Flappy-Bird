@@ -50,11 +50,75 @@ namespace Num
         m8.FromSheet(&numbers, NUM_MIN_8);
         m9.FromSheet(&numbers, NUM_MIN_9);
     }
-    void DrawBig(int num)
-    {
 
+    void Big(int x, int y, int num)
+    {
+        switch (num)
+        {
+        case 0:
+            b0.SetPos(x, y);
+            b0.Draw();
+            break;
+        case 1:
+            b1.SetPos(x, y);
+            b1.Draw();
+            break;
+        case 2:
+            b2.SetPos(x, y);
+            b2.Draw();
+            break;
+        case 3:
+            b3.SetPos(x, y);
+            b3.Draw();
+            break;
+        case 4:
+            b4.SetPos(x, y);
+            b4.Draw();
+            break;
+        case 5:
+            b5.SetPos(x, y);
+            b5.Draw();
+            break;
+        case 6:
+            b6.SetPos(x, y);
+            b6.Draw();
+            break;
+        case 7:
+            b7.SetPos(x, y);
+            b7.Draw();
+            break;
+        case 8:
+            b8.SetPos(x, y);
+            b8.Draw();
+            break;
+        case 9:
+            b9.SetPos(x, y);
+            b9.Draw();
+            break;
+        
+        default:
+            break;
+        }
     }
-    void DrawMin(int num)
+
+    void DrawBig(int x, int y, int num)
+    {
+        switch (num)
+        {
+        case 0 ... 9:
+            Big(x, y, num);
+            break;
+        case 10 ... 99:
+
+            break;
+        case 100 ... 999:
+
+            break;
+        default:
+            break;
+        }
+    }
+    void DrawMin(int x, int y, int num)
     {
 
     }
