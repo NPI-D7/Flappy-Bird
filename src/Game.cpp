@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include "TEX.h"
+#include "Pipe.hpp"
 
 RenderD7::Sheet stuffs;
 RenderD7::Sheet ybirds;
@@ -21,11 +22,8 @@ float birdr = (birdv/5)*128;
 
 Pipe gpipes[5];
 Pipe cpipes[5];
-class Pipe
-{
-    public:
-    float posx, posy;
-};
+
+
 Game::Game()
 {
     
