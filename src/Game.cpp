@@ -9,6 +9,7 @@ RenderD7::Sprite bgn;
 RenderD7::Sprite bgd;
 RenderD7::Sprite plays;
 RenderD7::Sprite upipe[5];
+RenderD7::Sprite cpipe[5];
 RenderD7::Sprite ground[2];
 RenderD7::Sprite bscr;
 RenderD7::SpriteSheetAnimation ybird;
@@ -41,8 +42,12 @@ Game::Game()
     for(int p = 0; p < 5; p++)
     {
         upipe[p].FromSheet(&stuffs, STUFF_PIPEU);
-        gpipes[p].posx = 80*p + 400;
+        cpipe[p].FromSheet(&stuffs, STUFF_PIPED);
+        cpipe[p].SetCenter(1.0, 0);
+        gpipes[p].posx = 86*p + 400;
         gpipes[p].posy = rand() % 75 + 60;
+        cpipes[p].posx = gpipes[p].posx;
+        cpipes[p].posy = gpipes[p].posy - 52;
     }
     
     ground[0].SetPos(0, 189);
@@ -85,11 +90,19 @@ void Game::Draw(void) const
             {
                 upipe[p].SetPos(gpipes[p].posx, gpipes[p].posy);
                 upipe[p].Draw();
+                cpipe[p].SetPos(cpipes[p].posx, cpipes[p].posy);
+                cpipe[p].Draw();
                 gpipes[p].posx -= 0.5;
+                cpipes[p].posy -= 0.5;
                 if (gpipes[p].posx < -30)
                 {
                     gpipes[p].posy = rand() % 75 + 60;
                     gpipes[p].posx = 400;
+                }
+                if (cpipes[p].posx < -30)
+                {
+                    cpipes[p].posy = gpipes[p].posy - 52;
+                    cpipes[p].posx = 400;
                 }
                 
             }
