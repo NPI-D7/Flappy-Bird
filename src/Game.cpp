@@ -22,6 +22,8 @@ bool playing = false;
 float birdPOS = 112.5;
 float birdv = 0;
 
+float timer = 0;
+
 float birdr = (birdv/5)*128;
 
 float boardposy;
@@ -203,23 +205,26 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
             best = sscore;
         }
         board.SetPos((400/2) - (board.getWidth()/2), boardposy);
-        if (hDown & KEY_TOUCH)
+        timer +=1;
+        if (timer > 60)
         {
-            for(int p = 0; p < 5; p++)
+            if (hDown & KEY_TOUCH)
             {
-                cpipe[p].SetCenter(0, 1.0);
-                gpipes[p].posx = 86*p + 400;
-                gpipes[p].posy = rand() % 80 + 65;
-                cpipes[p].posx = gpipes[p].posx;
-                cpipes[p].posy = gpipes[p].posy - 52;
+                for(int p = 0; p < 5; p++)
+                {
+                    cpipe[p].SetCenter(0, 1.0);
+                    gpipes[p].posx = 86*p + 400;
+                    gpipes[p].posy = rand() % 80 + 65;
+                    cpipes[p].posx = gpipes[p].posx;
+                    cpipes[p].posy = gpipes[p].posy - 52;
+                }
+                ground[0].SetPos(0, 189);
+                ground[1].SetPos(400, 189);
+                menu = true;
+                tot = false;
+                sscore = 0;
+                timer = 0;
             }
-    
-            ground[0].SetPos(0, 189);
-            ground[1].SetPos(400, 189);
-            menu = true;
-            tot = false;
-            sscore = 0;
         }
-        
     }
 }
