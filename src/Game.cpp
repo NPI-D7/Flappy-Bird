@@ -11,6 +11,7 @@ RenderD7::SpriteSheetAnimation ybird;
 
 bool tot = false;
 bool menu = true;
+bool playing = false;
 float birdPOS = 90;
 float birdv = 0;
 
@@ -71,8 +72,26 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
             {
                 birdv = -1;
             }
+            ybird.Play(2);
             ybird.SetPos(77, birdPOS);
-            ybird.Play(4);
+            if (hDown & KEY_TOUCH)
+            {
+                playing = true;
+                menu = false;
+            }
+            
         }
+        if (playing)
+        {
+            birdPOS += birdv;
+            birdv += 0.125;
+            ybird.Play(4);
+            ybird.SetPos(77, birdPOS);
+            if (hDown & KEY_TOUCH)
+            {
+                birdv -= 1;
+            }
+        }
+        
     }
 }
