@@ -67,7 +67,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         if (menu)
         {
             birdPOS += birdv;
-            birdv += 0.025;
+            birdv += 0.005;
             if (birdv > 0.5)
             {
                 birdv = -0.5;
