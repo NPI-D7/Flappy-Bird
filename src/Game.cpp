@@ -25,7 +25,7 @@ float birdv = 0;
 float birdr = (birdv/5)*128;
 
 float boardposy;
-
+int sscore = 0;
 Pipe gpipes[5];
 Pipe cpipes[5];
 
@@ -61,6 +61,7 @@ Game::Game()
     bscr.FromSheet(&stuffs, STUFF_BOTTOMSCREEN);
     
     plays.SetPos(138, 30);
+    boardposy = (240/2) - (board.getHeigh()/2);
 }
 Game::~Game()
 {
@@ -97,6 +98,11 @@ void Game::Draw(void) const
                 upipe[p].Draw();
                 cpipe[p].SetPos(cpipes[p].posx, cpipes[p].posy);
                 cpipe[p].Draw();
+                if (gpipe[p].posx == 77)
+                {
+                    sscore += 1;
+                }
+                
                 gpipes[p].posx -= 0.5;
                 cpipes[p].posx -= 0.5;
                 if (gpipes[p].posx < -30)
@@ -111,13 +117,21 @@ void Game::Draw(void) const
                 }
                 
             }
+            Num::DrawBig(190, 20, sscore);
         }
     }
+    
+    if (tot)
+    {
+        board.Draw();
+    }
+
+    ybird.Draw();
     for (int s = 0; s < 2; s++)
     {
         ground[s].Draw();
     }
-    ybird.Draw();
+    
     RenderD7::OnScreen(Bottom);
     bscr.Draw();
     RenderD7::DrawTextCentered(0, 210, 1.0f, RenderD7::Color::Hex("#000000"), "Press Start to Exit", 320);
