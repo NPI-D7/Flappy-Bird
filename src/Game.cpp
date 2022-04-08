@@ -26,6 +26,7 @@ float birdr = (birdv/5)*128;
 
 float boardposy;
 int sscore = 0;
+int best = 0;
 Pipe gpipes[5];
 Pipe cpipes[5];
 
@@ -131,7 +132,8 @@ void Game::Draw(void) const
             cpipe[p].Draw();
         }
         board.Draw();
-        Num::DrawMin((board.getPosX() + board.getWidth()) - 32, boardposy + 28, sscore);
+        Num::DrawMin((board.getPosX() + board.getWidth()) - 32, boardposy + 26, sscore);
+        Num::DrawMin((board.getPosX() + board.getWidth()) - 32, boardposy + 60, best);
     }
 
     ybird.Draw();
@@ -196,6 +198,10 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
     }
     if (tot)
     {
+        if (sscore > best)
+        {
+            best = sscore;
+        }
         board.SetPos((400/2) - (board.getWidth()/2), boardposy);
         if (hDown & KEY_TOUCH)
         {

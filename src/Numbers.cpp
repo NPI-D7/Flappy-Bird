@@ -180,14 +180,14 @@ namespace Num
             Min(x, y, num);
             break;
         case 10 ... 99:
-            Min(x-12, y, (num/10 %10));
-            Min(x+12, y, (num %10));
+            Min(x-6, y, (num/10 %10));
+            Min(x+6, y, (num %10));
 
             break;
         case 100 ... 999:
-            Min(x-22, y, (num/100 %10));
+            Min(x-11, y, (num/100 %10));
             Min(x, y, (num/10 %10));
-            Min(x+22, y, (num %10));
+            Min(x+11, y, (num %10));
             break;
         default:
             break;
