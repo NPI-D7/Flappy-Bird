@@ -6,6 +6,7 @@ RenderD7::Sheet ybirds;
 RenderD7::Sprite bgn;
 RenderD7::Sprite bgd;
 RenderD7::Sprite plays;
+RenderD7::Sprite upipe[5];
 RenderD7::Sprite ground[2];
 RenderD7::Sprite bscr;
 RenderD7::SpriteSheetAnimation ybird;
@@ -16,17 +17,35 @@ bool playing = false;
 float birdPOS = 112.5;
 float birdv = 0;
 
+float birdr = (birdv/5)*128;
+
+Pipe gpipes[5];
+Pipe cpipes[5];
+class Pipe
+{
+    public:
+    float posx, posy;
+};
 Game::Game()
 {
+    
     stuffs.Load("romfs:/gfx/stuff.t3x");
     ybirds.Load("romfs:/gfx/ybird.t3x");
     bgn.FromSheet(&stuffs, STUFF_BGN);
     bgd.FromSheet(&stuffs, STUFF_BGD);
     plays.FromSheet(&stuffs, STUFF_GETREADY);
+    
     for (int s = 0; s < 2; s++)
     {
         ground[s].FromSheet(&stuffs, STUFF_GROUND);
     }
+    for(int p = 0; p < 5; p++)
+    {
+        upipe[p].FromSheet(&stuffs, STUFF_PIPEU);
+        gpipes[p].posx = 80*p + 400;
+        gpipes[p].posy = RenderD7::GetRandomInt(60, 75);
+    }
+    
     ground[0].SetPos(0, 189);
     ground[1].SetPos(400, 189);
     ybird.Setup(&ybirds, 4, 0, 0, 20);
@@ -42,22 +61,13 @@ void Game::Draw(void) const
 {
     RenderD7::OnScreen(Top);
     bgn.Draw();
-    for (int s = 0; s < 2; s++)
-    {
-        ground[s].Draw();
-    }
     
-    ybird.Draw();
+    
+    
     if (menu)
     {
         plays.Draw();
     }
-    RenderD7::OnScreen(Bottom);
-    bscr.Draw();
-    RenderD7::DrawTextCentered(0, 210, 1.0f, RenderD7::Color::Hex("#000000"), "Press Start to Exit", 320);
-}
-void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
-{
     if (!tot)
     {
         ground[0].SetPos(ground[0].getPosX() -0.5, 189);
@@ -70,6 +80,28 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         {
             ground[1].SetPos(400, 189);
         }
+        if (playing)
+        {
+            for(int p = 0; p < 5; p++)
+            {
+                upipe[p].SetPos(gpipes[p].posx, gpipes[p].posy);
+                upipe[p].Draw();
+            }
+        }
+    }
+    for (int s = 0; s < 2; s++)
+    {
+        ground[s].Draw();
+    }
+    ybird.Draw();
+    RenderD7::OnScreen(Bottom);
+    bscr.Draw();
+    RenderD7::DrawTextCentered(0, 210, 1.0f, RenderD7::Color::Hex("#000000"), "Press Start to Exit", 320);
+}
+void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
+{
+    if (!tot)
+    {
         if (menu)
         {
             birdPOS += birdv;
