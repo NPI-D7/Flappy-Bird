@@ -93,7 +93,7 @@ void Game::Draw(void) const
                 cpipe[p].SetPos(cpipes[p].posx, cpipes[p].posy);
                 cpipe[p].Draw();
                 gpipes[p].posx -= 0.5;
-                cpipes[p].posy -= 0.5;
+                cpipes[p].posx -= 0.5;
                 if (gpipes[p].posx < -30)
                 {
                     gpipes[p].posy = rand() % 75 + 60;
