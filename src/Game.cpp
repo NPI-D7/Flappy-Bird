@@ -68,9 +68,9 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         {
             birdPOS += birdv;
             birdv += 0.025;
-            if (birdv > 1)
+            if (birdv > 0.5)
             {
-                birdv = -1;
+                birdv = -0.5;
             }
             ybird.Play(2);
             ybird.SetPos(77, birdPOS);
