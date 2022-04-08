@@ -9,6 +9,11 @@ RenderD7::Sprite ground[2];
 RenderD7::Sprite bscr;
 RenderD7::SpriteSheetAnimation ybird;
 
+bool tot = false;
+bool menu = true;
+float birdPOS = 90;
+float birdv = 0;
+
 Game::Game()
 {
     stuffs.Load("romfs:/gfx/stuff.t3x");
@@ -20,9 +25,10 @@ Game::Game()
         ground[s].FromSheet(&stuffs, STUFF_GROUND);
     }
     ground[0].SetPos(0, 189);
-    ground[1].SetPos(399, 189);
+    ground[1].SetPos(400, 189);
     ybird.Setup(&ybirds, 4, 0, 0, 20);
     bscr.FromSheet(&stuffs, STUFF_BOTTOMSCREEN);
+    ybird.SetCenter(DEFAULT_CENTER, DEFAULT_CENTER);
 }
 Game::~Game()
 {
@@ -45,16 +51,28 @@ void Game::Draw(void) const
 }
 void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
 {
-    ybird.Play(2);
-    ground[0].SetPos(ground[0].getPosX() -0.5, 189);
-    if (ground[0].getPosX() < -399)
+    if (!tot)
     {
-        ground[0].SetPos(0, 189);
+        ground[0].SetPos(ground[0].getPosX() -0.5, 189);
+        if (ground[0].getPosX() < -399)
+        {
+            ground[0].SetPos(0, 189);
+        }
+        ground[1].SetPos(ground[1].getPosX() -0.5, 189);
+        if (ground[1].getPosX() < 1)
+        {
+            ground[1].SetPos(400, 189);
+        }
+        if (menu)
+        {
+            birdPOS += birdv;
+            birdv += 0.125;
+            if (birdv > 1)
+            {
+                birdv = -1;
+            }
+            ybird.SetPos(77, birdPOS);
+            ybird.Play(4);
+        }
     }
-    ground[1].SetPos(ground[1].getPosX() -0.5, 189);
-    if (ground[1].getPosX() < 1)
-    {
-        ground[1].SetPos(399, 189);
-    }
-    
 }
