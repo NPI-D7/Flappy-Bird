@@ -1,6 +1,7 @@
 #include "Game.hpp"
 #include "TEX.h"
 #include "Pipe.hpp"
+#include <time.h>
 
 RenderD7::Sheet stuffs;
 RenderD7::Sheet ybirds;
@@ -26,7 +27,7 @@ Pipe cpipes[5];
 
 Game::Game()
 {
-    
+    srand(time(NULL));
     stuffs.Load("romfs:/gfx/stuff.t3x");
     ybirds.Load("romfs:/gfx/ybird.t3x");
     bgn.FromSheet(&stuffs, STUFF_BGN);
@@ -41,7 +42,7 @@ Game::Game()
     {
         upipe[p].FromSheet(&stuffs, STUFF_PIPEU);
         gpipes[p].posx = 80*p + 400;
-        gpipes[p].posy = RenderD7::GetRandomInt(60, 75);
+        gpipes[p].posy = rand() % 75 + 60;
     }
     
     ground[0].SetPos(0, 189);
@@ -87,6 +88,7 @@ void Game::Draw(void) const
                 gpipes[p].posx -= 1;
                 if (gpipes[p].posx < -30)
                 {
+                    gpipes[p].posy = rand() % 75 + 60;
                     gpipes[p].posx = 400;
                 }
                 
