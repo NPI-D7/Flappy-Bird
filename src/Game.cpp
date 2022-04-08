@@ -55,7 +55,7 @@ Game::Game()
     ground[1].SetPos(400, 189);
     ybird.Setup(&ybirds, 4, 0, 0, 20);
     bscr.FromSheet(&stuffs, STUFF_BOTTOMSCREEN);
-    ybird.SetCenter(DEFAULT_CENTER, DEFAULT_CENTER);
+    
     plays.SetPos(138, 30);
 }
 Game::~Game()
@@ -120,7 +120,7 @@ void Game::Draw(void) const
 }
 void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
 {
-    birdr = (birdv/5)*128;
+    birdr = (birdv/5)*2;
     if (birdr >= 0.5)
     {
         birdr = 0.5;
@@ -152,6 +152,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
             birdv += 0.025;
             ybird.Play(4);
             ybird.SetPos(77, birdPOS);
+            ybird.SetCenter(DEFAULT_CENTER, DEFAULT_CENTER);
             ybird.SetRotation(birdr);
             if (hDown & KEY_TOUCH)
             {
