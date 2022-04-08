@@ -72,7 +72,7 @@ void Game::Draw(void) const
         for (int i = 0; i < 2; i++)
         {
             ground[i].SetPos(ground[i].getPosX() - 0.5, 189);
-            if (ground[i].getPosX() < - 400)
+            if (ground[i].getPosX() < - 399)
             {
                 ground[i].SetPos(400, 189);
             }
@@ -85,7 +85,7 @@ void Game::Draw(void) const
             {
                 upipe[p].SetPos(gpipes[p].posx, gpipes[p].posy);
                 upipe[p].Draw();
-                gpipes[p].posx -= 1;
+                gpipes[p].posx -= 0.5;
                 if (gpipes[p].posx < -30)
                 {
                     gpipes[p].posy = rand() % 75 + 60;
