@@ -46,7 +46,7 @@ Game::Game()
         cpipe[p].FromSheet(&stuffs, STUFF_PIPED);
         cpipe[p].SetCenter(0, 1.0);
         gpipes[p].posx = 86*p + 400;
-        gpipes[p].posy = rand() % 75 + 60;
+        gpipes[p].posy = rand() % 80 + 65;
         cpipes[p].posx = gpipes[p].posx;
         cpipes[p].posy = gpipes[p].posy - 52;
     }
@@ -97,7 +97,7 @@ void Game::Draw(void) const
                 cpipes[p].posx -= 0.5;
                 if (gpipes[p].posx < -30)
                 {
-                    gpipes[p].posy = rand() % 75 + 60;
+                    gpipes[p].posy = rand() % 80 + 65;
                     gpipes[p].posx = 400;
                 }
                 if (cpipes[p].posx < -30)
@@ -142,7 +142,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         if (playing)
         {
             birdPOS += birdv;
-            birdv += 0.005;
+            birdv += 0.025;
             ybird.Play(4);
             ybird.SetPos(77, birdPOS);
             if (hDown & KEY_TOUCH)
