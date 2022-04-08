@@ -2,6 +2,7 @@
 #include "TEX.h"
 #include "Pipe.hpp"
 #include <time.h>
+#include "Numbers.hpp"
 
 RenderD7::Sheet stuffs;
 RenderD7::Sheet ybirds;
@@ -34,7 +35,7 @@ Game::Game()
     bgn.FromSheet(&stuffs, STUFF_BGN);
     bgd.FromSheet(&stuffs, STUFF_BGD);
     plays.FromSheet(&stuffs, STUFF_GETREADY);
-    
+    Num::Load();
     for (int s = 0; s < 2; s++)
     {
         ground[s].FromSheet(&stuffs, STUFF_GROUND);
@@ -43,7 +44,7 @@ Game::Game()
     {
         upipe[p].FromSheet(&stuffs, STUFF_PIPEU);
         cpipe[p].FromSheet(&stuffs, STUFF_PIPED);
-        cpipe[p].SetCenter(1.0, 0);
+        cpipe[p].SetCenter(0, 1.0);
         gpipes[p].posx = 86*p + 400;
         gpipes[p].posy = rand() % 75 + 60;
         cpipes[p].posx = gpipes[p].posx;
