@@ -147,8 +147,14 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
             ybird.SetPos(77, birdPOS);
             if (hDown & KEY_TOUCH)
             {
-                birdv = -0.5;
+                birdv = -1.5;
             }
+            if (birdPOS > 189)
+            {
+                playing = false;
+                tot = true;
+            }
+            
         }
         
     }
