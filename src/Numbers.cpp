@@ -101,6 +101,56 @@ namespace Num
         }
     }
 
+    void Min(int x, int y, int num)
+    {
+        switch (num)
+        {
+        case 0:
+            m0.SetPos(x, y);
+            m0.Draw();
+            break;
+        case 1:
+            m1.SetPos(x, y);
+            m1.Draw();
+            break;
+        case 2:
+            m2.SetPos(x, y);
+            m2.Draw();
+            break;
+        case 3:
+            m3.SetPos(x, y);
+            m3.Draw();
+            break;
+        case 4:
+            m4.SetPos(x, y);
+            m4.Draw();
+            break;
+        case 5:
+            m5.SetPos(x, y);
+            m5.Draw();
+            break;
+        case 6:
+            m6.SetPos(x, y);
+            m6.Draw();
+            break;
+        case 7:
+            m7.SetPos(x, y);
+            m7.Draw();
+            break;
+        case 8:
+            m8.SetPos(x, y);
+            m8.Draw();
+            break;
+        case 9:
+            m9.SetPos(x, y);
+            m9.Draw();
+            break;
+        
+        default:
+            break;
+        }
+    }
+
     void DrawBig(int x, int y, int num)
     {
         switch (num)
@@ -124,6 +174,23 @@ namespace Num
     }
     void DrawMin(int x, int y, int num)
     {
+        switch (num)
+        {
+        case 0 ... 9:
+            Min(x, y, num);
+            break;
+        case 10 ... 99:
+            Min(x-12, y, (num/10 %10));
+            Min(x+12, y, (num %10));
 
+            break;
+        case 100 ... 999:
+            Min(x-22, y, (num/100 %10));
+            Min(x, y, (num/10 %10));
+            Min(x+22, y, (num %10));
+            break;
+        default:
+            break;
+        }
     }
 }

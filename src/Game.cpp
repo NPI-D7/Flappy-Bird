@@ -123,7 +123,15 @@ void Game::Draw(void) const
     
     if (tot)
     {
+        for(int p = 0; p < 5; p++)
+        {
+            upipe[p].SetPos(gpipes[p].posx, gpipes[p].posy);
+            upipe[p].Draw();
+            cpipe[p].SetPos(cpipes[p].posx, cpipes[p].posy);
+            cpipe[p].Draw();
+        }
         board.Draw();
+        Num::DrawMin((board.getPosX() + board.getWidth()) - 16, boardposy + 15, sscore);
     }
 
     ybird.Draw();
