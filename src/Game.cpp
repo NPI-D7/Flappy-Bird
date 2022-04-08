@@ -84,7 +84,7 @@ void Game::Draw(void) const
             {
                 upipe[p].SetPos(gpipes[p].posx, gpipes[p].posy);
                 upipe[p].Draw();
-                gbipes[p].posx -= 1;
+                gpipes[p].posx -= 1;
                 if (gpipes[p].posx < -30)
                 {
                     gpipes[p].posx = 400;
