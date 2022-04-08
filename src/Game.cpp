@@ -68,22 +68,28 @@ void Game::Draw(void) const
     }
     if (!tot)
     {
-        ground[0].SetPos(ground[0].getPosX() -0.5, 189);
-        if (ground[0].getPosX() < -399)
+        for (int i = 0; i < 2; i++)
         {
-            ground[0].SetPos(0, 189);
+            ground[i].SetPos(ground[i].getPosX() - 0.5, 189);
+            if (ground[i].getPosX() < - 400)
+            {
+                ground[i].SetPos(400, 189);
+            }
+            
         }
-        ground[1].SetPos(ground[1].getPosX() -0.5, 189);
-        if (ground[1].getPosX() < 1)
-        {
-            ground[1].SetPos(400, 189);
-        }
+        
         if (playing)
         {
             for(int p = 0; p < 5; p++)
             {
                 upipe[p].SetPos(gpipes[p].posx, gpipes[p].posy);
                 upipe[p].Draw();
+                gbipes[p].posx -= 1;
+                if (gpipes[p].posx < -30)
+                {
+                    gpipes[p].posx = 400;
+                }
+                
             }
         }
     }
