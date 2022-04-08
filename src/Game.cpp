@@ -176,9 +176,9 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
             {
                 birdv = -1;
             }
-            if (birdPOS > 189)
+            if (birdPOS > (189 - ybird.getWidth()/2))
             {
-                birdPOS = 175;
+                birdPOS = (189 - ybird.getHeigh()/2);
                 playing = false;
                 tot = true;
             }
@@ -204,6 +204,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
             ground[1].SetPos(400, 189);
             menu = true;
             tot = false;
+            sscore = 0;
         }
         
     }
