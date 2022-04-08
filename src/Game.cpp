@@ -98,7 +98,7 @@ void Game::Draw(void) const
                 upipe[p].Draw();
                 cpipe[p].SetPos(cpipes[p].posx, cpipes[p].posy);
                 cpipe[p].Draw();
-                if (gpipe[p].posx == 77)
+                if (gpipes[p].posx == 77)
                 {
                     sscore += 1;
                 }
