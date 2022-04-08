@@ -120,6 +120,12 @@ void Game::Draw(void) const
 }
 void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
 {
+    birdr = (birdv/5)*128;
+    if (birdr >= 0.5)
+    {
+        birdr = 0.5;
+    }
+    ybird.SetRotation(birdr);
     if (!tot)
     {
         if (menu)
@@ -151,6 +157,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
             }
             if (birdPOS > 189)
             {
+                birdPOS = 189;
                 playing = false;
                 tot = true;
             }
