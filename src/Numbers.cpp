@@ -109,10 +109,14 @@ namespace Num
             Big(x, y, num);
             break;
         case 10 ... 99:
+            Big(x-12, y, (num/10 %10));
+            Big(x+12, y, (num %10));
 
             break;
         case 100 ... 999:
-
+            Big(x-22, y, (num/100 %10));
+            Big(x, y, (num/10 %10));
+            Big(x+22, y, (num %10));
             break;
         default:
             break;
