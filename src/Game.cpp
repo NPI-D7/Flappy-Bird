@@ -131,7 +131,7 @@ void Game::Draw(void) const
             cpipe[p].Draw();
         }
         board.Draw();
-        Num::DrawMin((board.getPosX() + board.getWidth()) - 16, boardposy + 15, sscore);
+        Num::DrawMin((board.getPosX() + board.getWidth()) - 32, boardposy + 28, sscore);
     }
 
     ybird.Draw();
