@@ -20,7 +20,7 @@ Game::Game()
         ground[s].FromSheet(&stuffs, STUFF_GROUND);
     }
     ground[0].SetPos(0, 189);
-    ground[1].SetPos(400, 189);
+    ground[1].SetPos(399, 189);
     ybird.Setup(&ybirds, 4, 0, 0, 20);
     bscr.FromSheet(&stuffs, STUFF_BOTTOMSCREEN);
 }
@@ -45,7 +45,7 @@ void Game::Draw(void) const
 }
 void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
 {
-    ybird.Play(4);
+    ybird.Play(2);
     ground[0].SetPos(ground[0].getPosX() -0.5, 189);
     if (ground[0].getPosX() < -399)
     {
@@ -54,7 +54,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
     ground[1].SetPos(ground[1].getPosX() -0.5, 189);
     if (ground[1].getPosX() < 1)
     {
-        ground[1].SetPos(400, 189);
+        ground[1].SetPos(399, 189);
     }
     
 }
