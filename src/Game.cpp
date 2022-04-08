@@ -23,7 +23,7 @@ float birdPOS = 112.5;
 float birdv = 0;
 
 float timer = 0;
-
+bool fixedl = false;
 float birdr = (birdv/5)*128;
 
 float boardposy;
@@ -208,6 +208,10 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         timer +=1;
         if (timer > 60)
         {
+            fixedl = true;
+        }
+        if (fixedl)
+        {
             if (hDown & KEY_TOUCH)
             {
                 for(int p = 0; p < 5; p++)
@@ -223,7 +227,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
                 menu = true;
                 tot = false;
                 sscore = 0;
-                timer = 0;
+                fixedl = false;
             }
         }
     }
