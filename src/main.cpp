@@ -14,7 +14,7 @@ int main()
         {
             RenderD7::ExitApp();
         }
-        C3D_FrameEnd(0);
+        RenderD7::FrameEnd();
     }
     RenderD7::Exit::Main();
     
