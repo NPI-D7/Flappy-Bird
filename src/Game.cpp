@@ -261,11 +261,12 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
                 }
                 ground[0].SetPos(0, 189);
                 ground[1].SetPos(400, 189);
-                menu = true;
-                tot = false;
+                
                 sscore = 0;
                 fixedl = false;
                 birdPOS = 112.5;
+                menu = true;
+                tot = false;
             }
         }
     }
