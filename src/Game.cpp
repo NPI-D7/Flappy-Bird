@@ -196,51 +196,48 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         birdr = 1.5;
     }
     
-    if (!tot)
+    
+    if (menu)
     {
-        if (menu)
-        {
-            playing = false;
-            
-            birdPOS += birdv;
-            birdv += 0.005;
-            if (birdv > 0.25)
-            {
-                birdv = -0.25;
-            }
-            ybird.Play(1.5);
-            ybird.SetPos(77, birdPOS);
-            
-            if (hDown & KEY_TOUCH)
-            {
-                playing = true;
-                menu = false;
-                fixedl = false;
-                timer = 0;
-            }
-        }
-        if (playing)
-        {
-            birdPOS += birdv;
-            birdv += 0.025;
-            ybird.Play(4);
-            ybird.SetPos(77, birdPOS);
-            ybird.SetCenter(DEFAULT_CENTER, DEFAULT_CENTER);
-            ybird.SetRotation(birdr);
-            if (hDown & KEY_TOUCH)
-            {
-                birdv = -1;
-            }
-            if (birdPOS > (189 - ybird.getWidth()/2))
-            {
-                birdPOS = (189 - ybird.getHeigh()/2);
-                playing = false;
-                boardposy  = 240;
-                tot = true;
-            }
-            
-        }
+        playing = false;
         
+        birdPOS += birdv;
+        birdv += 0.005;
+        if (birdv > 0.25)
+        {
+            birdv = -0.25;
+        }
+        ybird.Play(1.5);
+        ybird.SetPos(77, birdPOS);
+            
+        if (hDown & KEY_TOUCH)
+        {
+            playing = true;
+            menu = false;
+            fixedl = false;
+            timer = 0;
+        }
+    }
+    if (playing)
+    {
+        birdPOS += birdv;
+        birdv += 0.025;
+        ybird.Play(4);
+        ybird.SetPos(77, birdPOS);
+        ybird.SetCenter(DEFAULT_CENTER, DEFAULT_CENTER);
+        ybird.SetRotation(birdr);
+        if (hDown & KEY_TOUCH)
+        {
+            birdv = -1;
+        }
+        if (birdPOS > (189 - ybird.getWidth()/2))
+        {
+            birdPOS = (189 - ybird.getHeigh()/2);
+            playing = false;
+            boardposy  = 240;
+            tot = true;
+        }
+            
     }
     if (tot)
     {
@@ -277,8 +274,8 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
                 sscore = 0;
                 fixedl = false;
                 birdPOS = 112.5;
-                tot = false;
                 menu = true;
+                tot = false;
                 
             }
         }
