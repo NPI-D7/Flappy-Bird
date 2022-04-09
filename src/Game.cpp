@@ -228,6 +228,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
                 tot = false;
                 sscore = 0;
                 fixedl = false;
+                birdPOS = 112.5;
             }
         }
     }
