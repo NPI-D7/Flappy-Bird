@@ -10,6 +10,10 @@ RenderD7::Sprite bgn;
 RenderD7::Sprite bgd;
 RenderD7::Sprite board;
 RenderD7::Sprite plays;
+RenderD7::Sprite medalbronze;
+RenderD7::Sprite medalsilver;
+RenderD7::Sprite medalgold;
+RenderD7::Sprite medalplatin;
 RenderD7::Sprite upipe[5];
 RenderD7::Sprite cpipe[5];
 RenderD7::Sprite ground[2];
@@ -42,6 +46,10 @@ Game::Game()
     bgd.FromSheet(&stuffs, STUFF_BGD);
     plays.FromSheet(&stuffs, STUFF_GETREADY);
     board.FromSheet(&stuffs, STUFF_SCORES);
+    medalbronze.FromSheet(&stuffs, STUFF_MEDALBRONZE);
+    medalsilver.FromSheet(&stuffs, STUFF_MEDALSILVER);
+    medalgold.FromSheet(&stuffs, STUFF_MEDALGOLD);
+    medalplatin.FromSheet(&stuffs, STUFF_MEDALPLATIN);
     Num::Load();
     for (int s = 0; s < 2; s++)
     {
@@ -136,6 +144,23 @@ void Game::Draw(void) const
         board.Draw();
         Num::DrawMin((board.getPosX() + board.getWidth()) - 32, boardposy + 26, sscore);
         Num::DrawMin((board.getPosX() + board.getWidth()) - 32, boardposy + 60, best);
+        switch(sscore)
+        {
+            case 10 ... 19:
+            medalbronze.Draw();
+            break;
+            case 20 ... 29:
+            medalsilver.Draw();
+            break;
+            case 30 ... 39:
+            medalgold.Draw();
+            break;
+            case 40 ... 999:
+            medalplatin.Draw();
+            break;
+            default:
+            break;
+        }
     }
 
     ybird.Draw();
