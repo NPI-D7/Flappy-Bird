@@ -14,6 +14,7 @@ RenderD7::Sprite medalbronze;
 RenderD7::Sprite medalsilver;
 RenderD7::Sprite medalgold;
 RenderD7::Sprite medalplatin;
+RenderD7::Sprite gameovre;
 RenderD7::Sprite upipe[5];
 RenderD7::Sprite cpipe[5];
 RenderD7::Sprite ground[2];
@@ -50,6 +51,8 @@ Game::Game()
     medalsilver.FromSheet(&stuffs, STUFF_MEDALSILVER);
     medalgold.FromSheet(&stuffs, STUFF_MEDALGOLD);
     medalplatin.FromSheet(&stuffs, STUFF_MEDALPLATIN);
+    gameovre.FromSheet(&stuffs, STUFF_GAMEOVER);
+    gameovre.SetPos((400/2) - (gameovre.getWidth()/2), 5);
     Num::Load();
     for (int s = 0; s < 2; s++)
     {
@@ -141,6 +144,15 @@ void Game::Draw(void) const
             cpipe[p].SetPos(cpipes[p].posx, cpipes[p].posy);
             cpipe[p].Draw();
         }
+    }
+
+    ybird.Draw();
+    for (int s = 0; s < 2; s++)
+    {
+        ground[s].Draw();
+    }
+    if (tot)
+    {
         board.Draw();
         Num::DrawMin((board.getPosX() + board.getWidth()) - 32, boardposy + 26, sscore);
         Num::DrawMin((board.getPosX() + board.getWidth()) - 32, boardposy + 60, best);
@@ -165,17 +177,12 @@ void Game::Draw(void) const
             default:
             break;
         }
-    }
-
-    ybird.Draw();
-    for (int s = 0; s < 2; s++)
-    {
-        ground[s].Draw();
+        gameovre.Draw();
     }
     
     RenderD7::OnScreen(Bottom);
     bscr.Draw();
-    RenderD7::DrawTextCentered(0, 210, 1.0f, RenderD7::Color::Hex("#000000"), "Press Start to Exit", 320);
+    RenderD7::DrawTextCentered(0, 210, 0.8f, RenderD7::Color::Hex("#000000"), "Press Start to Exit", 320);
 }
 void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
 {
@@ -246,7 +253,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         }
         if (fixedl)
         {
-            boardposy--;
+            boardposy-=2;
             if (boardposy < (240/2) - (board.getHeigh()/2))
             {
                 boardposy = (240/2) - (board.getHeigh()/2);
