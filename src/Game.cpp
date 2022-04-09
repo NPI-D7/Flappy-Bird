@@ -169,7 +169,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
             ybird.Play(1.5);
             ybird.SetPos(77, birdPOS);
 
-            if (hDown & KEY_TOUCH)
+            if (hDown & KEY_TOUCH && birdPOS < 100)
             {
                 playing = true;
                 menu = false;
