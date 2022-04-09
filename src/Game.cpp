@@ -147,15 +147,19 @@ void Game::Draw(void) const
         switch(sscore)
         {
             case 10 ... 19:
+            medalbronze.SetPos(board.getPosX() + 21, boardposy + 36);
             medalbronze.Draw();
             break;
             case 20 ... 29:
+            medalsilver.SetPos(board.getPosX() + 21, boardposy + 36);
             medalsilver.Draw();
             break;
             case 30 ... 39:
+            medalgold.SetPos(board.getPosX() + 21, boardposy + 36);
             medalgold.Draw();
             break;
             case 40 ... 999:
+            medalplatin.SetPos(board.getPosX() + 21, boardposy + 36);
             medalplatin.Draw();
             break;
             default:
