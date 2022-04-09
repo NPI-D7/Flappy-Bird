@@ -72,7 +72,7 @@ Game::Game()
     bscr.FromSheet(&stuffs, STUFF_BOTTOMSCREEN);
     
     plays.SetPos(138, 30);
-    boardposy = (240/2) - (board.getHeigh()/2);
+    boardposy = 260;
 }
 Game::~Game()
 {
@@ -193,11 +193,6 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
     {
         if (menu)
         {
-            timer +=1;
-            if (timer > 60)
-            {
-                fixedl = true;
-            }
             birdPOS += birdv;
             birdv += 0.005;
             if (birdv > 0.25)
@@ -208,7 +203,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
             ybird.SetPos(77, birdPOS);
             if (fixedl)
             {
-                if (hDown & KEY_TOUCH && birdPOS < 120)
+                if (hDown & KEY_TOUCH)
                 {
                     playing = true;
                     menu = false;
@@ -233,6 +228,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
             {
                 birdPOS = (189 - ybird.getHeigh()/2);
                 playing = false;
+                boardposy  = 260;
                 tot = true;
             }
             
@@ -253,6 +249,11 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         }
         if (fixedl)
         {
+            boardposy--;
+            if (boardposy < (240/2) - (board.getHeigh()/2))
+            {
+                boardposy = (240/2) - (board.getHeigh()/2);
+            }
             if (hDown & KEY_TOUCH)
             {
                 for(int p = 0; p < 5; p++)
