@@ -211,7 +211,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
             ybird.Play(1.5);
             ybird.SetPos(77, birdPOS);
             
-            if (hDown & KEY_A)
+            if (hDown & KEY_TOUCH)
             {
                 playing = true;
                 menu = false;
@@ -256,7 +256,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         }
         if (fixedl)
         {
-            boardposy-=2;
+            boardposy-=4;
             if (boardposy < (240/2) - (board.getHeigh()/2))
             {
                 boardposy = (240/2) - (board.getHeigh()/2);
