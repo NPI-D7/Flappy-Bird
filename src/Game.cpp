@@ -201,7 +201,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         if (menu)
         {
             playing = false;
-            timer++;
+            
             birdPOS += birdv;
             birdv += 0.005;
             if (birdv > 0.25)
@@ -210,11 +210,8 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
             }
             ybird.Play(1.5);
             ybird.SetPos(77, birdPOS);
-            if (timer > 60)
-            {
-                fixedl = true;
-            }
-            if (hDown & KEY_TOUCH && fixedl)
+            
+            if (hDown & KEY_A)
             {
                 playing = true;
                 menu = false;
