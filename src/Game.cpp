@@ -52,7 +52,7 @@ Game::Game()
     medalgold.FromSheet(&stuffs, STUFF_MEDALGOLD);
     medalplatin.FromSheet(&stuffs, STUFF_MEDALPLATIN);
     gameovre.FromSheet(&stuffs, STUFF_GAMEOVER);
-    gameovre.SetPos((400/2) - (gameovre.getWidth()/2), 5);
+    gameovre.SetPos((400/2) - (gameovre.getWidth()/2), 10);
     Num::Load();
     for (int s = 0; s < 2; s++)
     {
@@ -200,6 +200,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
     {
         if (menu)
         {
+            timer++;
             birdPOS += birdv;
             birdv += 0.005;
             if (birdv > 0.25)
@@ -208,7 +209,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
             }
             ybird.Play(1.5);
             ybird.SetPos(77, birdPOS);
-            if (hDown & KEY_TOUCH)
+            if (hDown & KEY_TOUCH && timer > 60)
             {
                 playing = true;
                 menu = false;
