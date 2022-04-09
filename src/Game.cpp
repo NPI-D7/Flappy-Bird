@@ -200,6 +200,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
     {
         if (menu)
         {
+            playing = false;
             timer++;
             birdPOS += birdv;
             birdv += 0.005;
@@ -233,7 +234,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
             {
                 birdPOS = (189 - ybird.getHeigh()/2);
                 playing = false;
-                boardposy  = 260;
+                boardposy  = 240;
                 tot = true;
             }
             
@@ -275,8 +276,9 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
                 sscore = 0;
                 fixedl = false;
                 birdPOS = 112.5;
-                menu = true;
                 tot = false;
+                menu = true;
+                
             }
         }
     }
