@@ -147,19 +147,19 @@ void Game::Draw(void) const
         switch(sscore)
         {
             case 10 ... 19:
-            medalbronze.SetPos(board.getPosX() + 21, boardposy + 36);
+            medalbronze.SetPos(board.getPosX() + 20, boardposy + 32);
             medalbronze.Draw();
             break;
             case 20 ... 29:
-            medalsilver.SetPos(board.getPosX() + 21, boardposy + 36);
+            medalsilver.SetPos(board.getPosX() + 20, boardposy + 32);
             medalsilver.Draw();
             break;
             case 30 ... 39:
-            medalgold.SetPos(board.getPosX() + 21, boardposy + 36);
+            medalgold.SetPos(board.getPosX() + 20, boardposy + 32);
             medalgold.Draw();
             break;
             case 40 ... 999:
-            medalplatin.SetPos(board.getPosX() + 21, boardposy + 36);
+            medalplatin.SetPos(board.getPosX() + 20, boardposy + 32);
             medalplatin.Draw();
             break;
             default:
@@ -190,7 +190,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         if (menu)
         {
             timer +=1;
-            if (timer > 10)
+            if (timer > 60)
             {
                 fixedl = true;
             }
