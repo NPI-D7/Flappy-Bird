@@ -179,6 +179,10 @@ void Game::Draw(void) const
 }
 void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
 {
+    if (sscore >= 999)
+    {
+        sscore = 999;
+    }
     birdr = (birdv/5)*2.5;
     if (birdr >= 1.5)
     {
