@@ -69,11 +69,28 @@ void SaveHighScore(int val) {
     fclose(scorefile);
 }
 
+int birdt = 0;
 Game::Game()
 {
     srand(time(NULL));
     stuffs.Load("romfs:/gfx/stuff.t3x");
-    ybirds.Load("romfs:/gfx/ybird.t3x");
+    birdt = rand() % 2 + 0;
+    switch (birdt)
+    {
+    case 0:
+        ybirds.Load("romfs:/gfx/ybird.t3x");
+        break;
+    case 1:
+        ybirds.Load("romfs:/gfx/bbird.t3x");
+        break;
+    case 2:
+        ybirds.Load("romfs:/gfx/rbird.t3x");
+        break;
+    default:
+        ybirds.Load("romfs:/gfx/ybird.t3x");
+        break;
+    }
+    
     bgn.FromSheet(&stuffs, STUFF_BGN);
     bgd.FromSheet(&stuffs, STUFF_BGD);
     plays.FromSheet(&stuffs, STUFF_GETREADY);
@@ -96,7 +113,7 @@ Game::Game()
     {
         /* code */
     }
-    bgrr = rand() % 1;
+    bgrr = rand() % 1 + 0;
     Num::Load();
     for (int s = 0; s < 2; s++)
     {
