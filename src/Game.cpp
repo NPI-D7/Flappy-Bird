@@ -211,7 +211,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         ybird.Play(1.5);
         ybird.SetPos(77, birdPOS);
             
-        if (hDown & KEY_TOUCH)
+        if (hDown & KEY_A)
         {
             playing = true;
 
@@ -223,14 +223,14 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
     if (playing)
     {
         birdPOS += birdv;
-        birdv += 0.025;
+        birdv += 0.026;
         ybird.Play(4);
         ybird.SetPos(77, birdPOS);
         ybird.SetCenter(DEFAULT_CENTER, DEFAULT_CENTER);
         ybird.SetRotation(birdr);
         if (hDown & KEY_TOUCH)
         {
-            birdv = -1;
+            birdv = -1.3;
         }
         if (birdPOS > (189 - ybird.getWidth()/2))
         {
