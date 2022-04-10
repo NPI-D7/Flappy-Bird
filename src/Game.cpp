@@ -285,10 +285,11 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         //Colissiob
         for (int i = 0; i < 5; i++)
         {
-            if ((birdPOS > cpipes[i].posy) && 77 > cpipes[i].posx && 77 > (cpipes[i].posx + cpipe[i].getWidth()) || (birdPOS < gpipes[i].posy) && 77 > gpipes[i].posx && 77 < (gpipes[i].posx + upipe[i].getWidth()))
+            if ((birdPOS > cpipes[i].posy) && 77 > cpipes[i].posx && 77 < (cpipes[i].posx + cpipe[i].getWidth()) || (birdPOS < gpipes[i].posy) && 77 > gpipes[i].posx && 77 < (gpipes[i].posx + upipe[i].getWidth()))
             {
                 hit->play();
                 die->play();
+                boardposy  = 4000; //As far away as possible
                 hitd = true;
                 tot = true;
             }
