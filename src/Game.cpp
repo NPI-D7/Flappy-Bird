@@ -36,7 +36,7 @@ float birdr = (birdv/5)*128;
 
 float boardposy;
 int sscore = 0;
-int best = 0;
+
 bool newbest= false;
 Pipe gpipes[5];
 Pipe cpipes[5];
@@ -46,6 +46,26 @@ sound* point = NULL;
 sound* die = NULL;
 sound* hit = NULL;
 sound* swoosh = NULL;
+
+int LoadHighScore() {
+    FILE *scorefile = fopen("sdmc:/Flappy-Bird.bin", "rb");
+    
+    if(!scorefile)
+        return 0;
+    
+    int ret;
+    fread(&ret, sizeof(int), 1, scorefile);
+    fclose(scorefile);
+    
+    return ret;
+}
+int best = LoadHighScore();
+void SaveHighScore(int val) {
+    FILE *scorefile = fopen("sdmc:/Flappy-Bird.bin", "wb");
+    
+    fwrite(&val, sizeof(int), 1, scorefile);
+    fclose(scorefile);
+}
 
 Game::Game()
 {
@@ -265,7 +285,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         //Colissiob
         for (int i = 0; i < 5; i++)
         {
-            if ((birdPOS < cpipes[i].posy) && 77 < cpipes[i].posx && 77 > (cpipes[i].posx + cpipe[i].getWidth()) || (birdPOS > gpipes[i].posy) && 77 < gpipes[i].posx && 77 > (upipes[i].posx + gpipe[i].getWidth()))
+            if ((birdPOS < cpipes[i].posy) && 77 < cpipes[i].posx && 77 > (cpipes[i].posx + cpipe[i].getWidth()) || (birdPOS > gpipes[i].posy) && 77 < gpipes[i].posx && 77 > (gpipes[i].posx + upipe[i].getWidth()))
             {
                 hit->play();
                 hitd = true;
@@ -290,6 +310,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         {
             newbest = true;
             best = sscore;
+            SaveHighScore(best);
         }
         board.SetPos((400/2) - (board.getWidth()/2), boardposy);
         timer +=1;
