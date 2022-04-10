@@ -288,14 +288,16 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
             if ((birdPOS > cpipes[i].posy) && 77 > cpipes[i].posx && 77 > (cpipes[i].posx + cpipe[i].getWidth()) || (birdPOS < gpipes[i].posy) && 77 > gpipes[i].posx && 77 < (gpipes[i].posx + upipe[i].getWidth()))
             {
                 hit->play();
+                die->play();
                 hitd = true;
+                tot = true;
             }
         }
     
         if (birdPOS > (189 - ybird.getWidth()/2))
         {
             if (!hitd) hit->play();
-            die->play();
+            if (!hitd) die->play();
             birdPOS = (189 - ybird.getHeigh()/2);
             playing = false;
             boardposy  = 240;
@@ -314,6 +316,12 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         }
         board.SetPos((400/2) - (board.getWidth()/2), boardposy);
         timer +=1;
+        birdPOS += birdv;
+        birdv += 0.026;
+        if (birdPOS > (189 - ybird.getWidth()/2))
+        {
+            birdPOS = (189 - ybird.getHeigh()/2);
+        }
         if (timer > 60)
         {
             fixedl = true;
