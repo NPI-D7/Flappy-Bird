@@ -8,7 +8,7 @@ int main()
     RenderD7::Init::NdspFirm(true);
     if (!RenderD7::IsNdspInit())
     {
-        RenderD7::Error::DisplayError("Flappy-Bird->RenderD7->Error", "sdmc:/3ds/dspfirm.cdc not found.\nThis means that soundeffects\ncould not be played.\nYou can dump it with the Latest Luma3ds version.\nPress L + DPadDown + Select\nGo to Miscellaneous options...->Dump DSP firmware\nThen Restart this Game.", 10);
+        RenderD7::Error::DisplayError("Flappy-Bird->RenderD7->Warning(10 Sec)", "sdmc:/3ds/dspfirm.cdc not found.\nThis means that soundeffects\ncould not be played.\nYou can dump it with the Latest Luma3ds version.\nPress L + DPadDown + Select\nGo to Miscellaneous options...->Dump DSP firmware\nThen Restart this Game.", 10);
     }
     RenderD7::Scene::Load(std::make_unique<Game>());
     while (RenderD7::MainLoop())

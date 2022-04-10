@@ -15,6 +15,7 @@ RenderD7::Sprite medalbronze;
 RenderD7::Sprite medalsilver;
 RenderD7::Sprite medalgold;
 RenderD7::Sprite medalplatin;
+RenderD7::Sprite newss;
 RenderD7::Sprite gameovre;
 RenderD7::Sprite upipe[5];
 RenderD7::Sprite cpipe[5];
@@ -27,6 +28,7 @@ bool menu = true;
 bool playing = false;
 float birdPOS = 112.5;
 float birdv = 0;
+bool hitd = false;
 
 float timer = 0;
 bool fixedl = false;
@@ -35,6 +37,7 @@ float birdr = (birdv/5)*128;
 float boardposy;
 int sscore = 0;
 int best = 0;
+bool newbest= false;
 Pipe gpipes[5];
 Pipe cpipes[5];
 
@@ -58,6 +61,7 @@ Game::Game()
     medalgold.FromSheet(&stuffs, STUFF_MEDALGOLD);
     medalplatin.FromSheet(&stuffs, STUFF_MEDALPLATIN);
     gameovre.FromSheet(&stuffs, STUFF_GAMEOVER);
+    newss.FromSheet(&stuffs, STUFF_NEW);
     gameovre.SetPos((400/2) - (gameovre.getWidth()/2), 10);
     if (RenderD7::IsNdspInit())
     {
@@ -176,6 +180,12 @@ void Game::Draw(void) const
         board.Draw();
         Num::DrawMin((board.getPosX() + board.getWidth()) - 32, boardposy + 26, sscore);
         Num::DrawMin((board.getPosX() + board.getWidth()) - 32, boardposy + 60, best);
+        newss.SetPos(board.getPosX() + 66, boardposy + 62);
+        if (newbest)
+        {
+            newss.Draw();
+        }
+        
         switch(sscore)
         {
             case 10 ... 19:
@@ -247,14 +257,14 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         ybird.SetPos(77, birdPOS);
         ybird.SetCenter(DEFAULT_CENTER, DEFAULT_CENTER);
         ybird.SetRotation(birdr);
-        if (hDown & KEY_TOUCH)
+        if (hDown & KEY_TOUCH && !hitd)
         {
             fly->play();
             birdv = -1.1;
         }
         if (birdPOS > (189 - ybird.getWidth()/2))
         {
-            hit->play();
+            if (!hitd) hit->play();
             die->play();
             birdPOS = (189 - ybird.getHeigh()/2);
             playing = false;
@@ -268,6 +278,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         
         if (sscore > best)
         {
+            newbest = true;
             best = sscore;
         }
         board.SetPos((400/2) - (board.getWidth()/2), boardposy);
@@ -302,6 +313,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
                 timer = 0;
                 swoosh->play();
                 menu = true;
+                newbest = false;
                 tot = false;
                 
             }
