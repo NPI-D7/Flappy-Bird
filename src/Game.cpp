@@ -260,7 +260,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
             {
                 boardposy = (240/2) - (board.getHeigh()/2);
             }
-            if (hDown & KEY_TOUCH && boardposy = (240/2) - (board.getHeigh()/2))
+            if (hDown & KEY_TOUCH && boardposy == (240/2) - (board.getHeigh()/2))
             {
                 for(int p = 0; p < 5; p++)
                 {
