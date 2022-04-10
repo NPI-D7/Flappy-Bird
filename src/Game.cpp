@@ -285,7 +285,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         //Colissiob
         for (int i = 0; i < 5; i++)
         {
-            if (((birdPOS + ybird.getHeigh()/2) < cpipes[i].posy) && (77 + ybird.getWidth()/2) > cpipes[i].posx && (77 + ybird.getWidth()/2) < (cpipes[i].posx + cpipe[i].getWidth()) || ((birdPOS + ybird.getHeigh()/2) > gpipes[i].posy) && (77 + ybird.getWidth()/2) > gpipes[i].posx && (77 + ybird.getWidth()/2) < (gpipes[i].posx + upipe[i].getWidth()))
+            if (((birdPOS - ybird.getHeigh()/2) < cpipes[i].posy) && (77 + ybird.getWidth()/2) > cpipes[i].posx && (77 - ybird.getWidth()/2) < (cpipes[i].posx + cpipe[i].getWidth()) || ((birdPOS + ybird.getHeigh()/2) > gpipes[i].posy) && (77 + ybird.getWidth()/2) > gpipes[i].posx && (77 - ybird.getWidth()/2) < (gpipes[i].posx + upipe[i].getWidth()))
             {
                 hit->play();
                 die->play();
