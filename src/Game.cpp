@@ -260,7 +260,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         ybird.Play(1.5);
         ybird.SetPos(77, birdPOS);
         timer++;
-        if (timer > 60 && hDown & KEY_TOUCH)
+        if (timer > 10 && hDown & KEY_TOUCH)
         {
             playing = true;
 
@@ -285,7 +285,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         //Colissiob
         for (int i = 0; i < 5; i++)
         {
-            if ((birdPOS < cpipes[i].posy) && 77 < cpipes[i].posx && 77 > (cpipes[i].posx + cpipe[i].getWidth()) || (birdPOS > gpipes[i].posy) && 77 < gpipes[i].posx && 77 > (gpipes[i].posx + upipe[i].getWidth()))
+            if ((birdPOS > cpipes[i].posy) && 77 > cpipes[i].posx && 77 > (cpipes[i].posx + cpipe[i].getWidth()) || (birdPOS < gpipes[i].posy) && 77 > gpipes[i].posx && 77 < (gpipes[i].posx + upipe[i].getWidth()))
             {
                 hit->play();
                 hitd = true;
