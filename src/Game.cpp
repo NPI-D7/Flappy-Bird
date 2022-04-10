@@ -3,6 +3,7 @@
 #include "Pipe.hpp"
 #include <time.h>
 #include "Numbers.hpp"
+#include "sound.hpp"
 
 RenderD7::Sheet stuffs;
 RenderD7::Sheet ybirds;
@@ -37,6 +38,11 @@ int best = 0;
 Pipe gpipes[5];
 Pipe cpipes[5];
 
+sound* fly = NULL;
+sound* point = NULL;
+sound* die = NULL;
+sound* hit = NULL;
+sound* swoosh = NULL;
 
 Game::Game()
 {
@@ -53,6 +59,18 @@ Game::Game()
     medalplatin.FromSheet(&stuffs, STUFF_MEDALPLATIN);
     gameovre.FromSheet(&stuffs, STUFF_GAMEOVER);
     gameovre.SetPos((400/2) - (gameovre.getWidth()/2), 10);
+    if (RenderD7::IsNdspInit())
+    {
+        fly = new sound("romfs:/sfx/wing.wav", 1);
+        point = new sound("romfs:/sfx/point.wav", 2);
+        die = new sound("romfs:/sfx/die.wav", 3);
+        hit = new sound("romfs:/sfx/hit.wav", 4);
+        swoosh = new sound("romfs:/sfx/swoosh.wav", 5);
+    }
+    {
+        /* code */
+    }
+    
     Num::Load();
     for (int s = 0; s < 2; s++)
     {
@@ -113,8 +131,9 @@ void Game::Draw(void) const
                 upipe[p].Draw();
                 cpipe[p].SetPos(cpipes[p].posx, cpipes[p].posy);
                 cpipe[p].Draw();
-                if (gpipes[p].posx == 77)
+                if ((gpipes[p].posx + (upipe[0].getWidth()/2)) == 77)
                 {
+                    point->play();
                     sscore += 1;
                 }
                 
@@ -230,10 +249,12 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         ybird.SetRotation(birdr);
         if (hDown & KEY_TOUCH)
         {
+            fly->play();
             birdv = -1.1;
         }
         if (birdPOS > (189 - ybird.getWidth()/2))
         {
+            hit->play();
             birdPOS = (189 - ybird.getHeigh()/2);
             playing = false;
             boardposy  = 240;
@@ -243,6 +264,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
     }
     if (tot)
     {
+        die->play();
         if (sscore > best)
         {
             best = sscore;
@@ -277,6 +299,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
                 fixedl = false;
                 birdPOS = 112.5;
                 timer = 0;
+                swoosh->play();
                 menu = true;
                 tot = false;
                 
