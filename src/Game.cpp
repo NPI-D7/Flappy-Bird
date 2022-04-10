@@ -47,6 +47,8 @@ sound* die = NULL;
 sound* hit = NULL;
 sound* swoosh = NULL;
 
+int bgrr = 0;
+
 int LoadHighScore() {
     FILE *scorefile = fopen("sdmc:/Flappy-Bird.bin", "rb");
     
@@ -118,6 +120,7 @@ Game::Game()
     
     plays.SetPos(138, 30);
     boardposy = 260;
+    
 }
 Game::~Game()
 {
@@ -127,7 +130,8 @@ Game::~Game()
 void Game::Draw(void) const
 {
     RenderD7::OnScreen(Top);
-    bgn.Draw();
+    if (bgrr == 0) bgn.Draw();
+    if (bgrr == 1) bgd.Draw();
     
     
     
