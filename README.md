@@ -19,4 +19,4 @@ The ground is a bit buggy currently!
 
 # Credits
 devkitpro: for libctru, citro2/3d.
-Dong Nguyen, .Gears: for tha Game.
+Dong Nguyen, .Gears: for the Game.
