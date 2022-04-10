@@ -265,7 +265,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         //Colissiob
         for (int i = 0; i < 5; i++)
         {
-            if ((birdPOS < cpipes[i].posy) && 77 < cpipes[i].posx && 77 > (cpipes[i].posx + cpipe[i].getWidth()) || (birdPOS > gpipes[i].posy) && 77 < gpipes[i].posx && 77 > (gpipes[i].posx + gpipe[i].getWidth()))
+            if ((birdPOS < cpipes[i].posy) && 77 < cpipes[i].posx && 77 > (cpipes[i].posx + cpipe[i].getWidth()) || (birdPOS > gpipes[i].posy) && 77 < gpipes[i].posx && 77 > (upipes[i].posx + gpipe[i].getWidth()))
             {
                 hit->play();
                 hitd = true;
@@ -324,7 +324,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
                 swoosh->play();
                 menu = true;
                 newbest = false;
-                hit = false;
+                hitd = false;
                 tot = false;
                 
             }
