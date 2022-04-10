@@ -161,9 +161,9 @@ void Game::Draw(void) const
         for (int i = 0; i < 2; i++)
         {
             ground[i].SetPos(ground[i].getPosX() - 0.5, 189);
-            if (ground[i].getPosX() < - 400)
+            if (ground[i].getPosX() == -400)
             {
-                ground[i].SetPos(399, 189);
+                ground[i].SetPos(400, 189);
             }
             
         }
@@ -301,7 +301,6 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         if (hDown & KEY_TOUCH && !hitd)
         {
             fly->play();
-            fly->stop();
             birdv = -1.1;
         }
         //Colissiob
