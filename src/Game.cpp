@@ -96,7 +96,7 @@ Game::Game()
     {
         /* code */
     }
-    
+    bgrr = rand() % 1;
     Num::Load();
     for (int s = 0; s < 2; s++)
     {
@@ -358,6 +358,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
                 swoosh->play();
                 menu = true;
                 newbest = false;
+                bgrr = rand() % 1;
                 hitd = false;
                 tot = false;
                 
