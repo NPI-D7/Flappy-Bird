@@ -3,7 +3,7 @@
         {
             "name": "3DS",
             "includePath": [
-                "${workspaceFolder}",
+                "${workspaceFolder}/**",
                 "${workspaceFolder}/RenderD7/**"
             ],
             "intelliSenseMode": "gcc-arm",

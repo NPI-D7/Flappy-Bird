@@ -80,6 +80,7 @@ Game::Game()
 Game::~Game()
 {
     stuffs.Free();
+    ybirds.Free();
 }
 void Game::Draw(void) const
 {
