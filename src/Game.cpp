@@ -214,6 +214,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         if (hDown & KEY_TOUCH)
         {
             playing = true;
+
             menu = false;
             fixedl = false;
             timer = 0;
@@ -252,14 +253,14 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         {
             fixedl = true;
         }
-        if (fixedl)
-        {
+        //if (fixedl)
+        //{
             boardposy-=4;
             if (boardposy < (240/2) - (board.getHeigh()/2))
             {
                 boardposy = (240/2) - (board.getHeigh()/2);
             }
-            if (hDown & KEY_TOUCH)
+            if (hDown & KEY_TOUCH && boardposy = (240/2) - (board.getHeigh()/2))
             {
                 for(int p = 0; p < 5; p++)
                 {
@@ -279,6 +280,6 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
                 tot = false;
                 
             }
-        }
+       // }
     }
 }
