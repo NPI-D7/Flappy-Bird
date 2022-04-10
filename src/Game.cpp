@@ -74,7 +74,7 @@ Game::Game()
 {
     srand(time(NULL));
     stuffs.Load("romfs:/gfx/stuff.t3x");
-    birdt = rand() % 2 + 0;
+    birdt = rand() % 3 + 0;
     switch (birdt)
     {
     case 0:
@@ -113,7 +113,7 @@ Game::Game()
     {
         /* code */
     }
-    bgrr = rand() % 1 + 0;
+    bgrr = rand() % 2 + 0;
     Num::Load();
     for (int s = 0; s < 2; s++)
     {
@@ -148,7 +148,7 @@ void Game::Draw(void) const
 {
     RenderD7::OnScreen(Top);
     if (bgrr == 0) bgn.Draw();
-    if (bgrr == 1) bgd.Draw();
+    if (bgrr != 0) bgd.Draw();
     
     
     
@@ -375,7 +375,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
                 swoosh->play();
                 menu = true;
                 newbest = false;
-                bgrr = rand() % 1 + 0;
+                bgrr = rand() % 2 + 0;
                 hitd = false;
                 tot = false;
                 
