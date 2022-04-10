@@ -375,7 +375,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
                 swoosh->play();
                 menu = true;
                 newbest = false;
-                bgrr = rand() % 1;
+                bgrr = rand() % 1 + 0;
                 hitd = false;
                 tot = false;
                 
