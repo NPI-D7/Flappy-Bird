@@ -255,6 +255,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         if (birdPOS > (189 - ybird.getWidth()/2))
         {
             hit->play();
+            die->play();
             birdPOS = (189 - ybird.getHeigh()/2);
             playing = false;
             boardposy  = 240;
@@ -264,7 +265,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
     }
     if (tot)
     {
-        die->play();
+        
         if (sscore > best)
         {
             best = sscore;
