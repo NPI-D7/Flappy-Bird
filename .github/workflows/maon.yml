@@ -2,7 +2,7 @@ name: Build Flappy-Bird
 
 on:
   push:
-    branches-ignore: [translation]
+    branches-ignore: [screenshots]
   pull_request:
     branches: ["*"]
   release:
