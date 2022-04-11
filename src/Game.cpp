@@ -155,6 +155,7 @@ void Game::Draw(void) const
     if (menu)
     {
         plays.Draw();
+        RenderD7::DrawTextCentered(0, 240 - RenderD7::GetTextHeight(0.4f, "(c) .GEARS 2013, NPI-D7 2022"), 0.4f, RenderD7::Color::Hex("#eeeeee"), "(c) .GEARS 2013, NPI-D7 2022", 400);
     }
     if (!tot)
     {
