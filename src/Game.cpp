@@ -374,6 +374,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
                 birdPOS = 112.5;
                 timer = 0;
                 swoosh->play();
+                birdv = 0;
                 menu = true;
                 newbest = false;
                 bgrr = rand() % 2 + 0;
