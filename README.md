@@ -2,7 +2,6 @@
 
 <img height="22" src="https://img.shields.io/github/downloads/NPI-D7/Flappy-Bird/total.svg?style=for-the-badge"> <a href="https://github.com/NPI-D7/Flappy-Bird/releases">
 
-The ground is a bit buggy currently!
 
 <details closed>
 <summary>Screenshots</summary>
