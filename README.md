@@ -1,8 +1,6 @@
 # Flappy-Bird 
 
 <img height="22" src="https://img.shields.io/github/downloads/NPI-D7/Flappy-Bird/total.svg?style=for-the-badge"> <a href="https://github.com/NPI-D7/Flappy-Bird/releases">
-<img href="" alt="Discord" src="https://img.shields.io/discord/961610973066702889?style=for-the-badge">
-[Discord](https://discord.gg/XuX6EN8dyt)
 
 The ground is a bit buggy currently!
 
