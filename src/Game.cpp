@@ -258,6 +258,10 @@ void Game::Draw(void) const
 }
 void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
 {
+    if (hDown & KEY_SELECT)
+    {
+        RenderD7::LoadSettings();
+    }
     if (sscore >= 999)
     {
         sscore = 999;
