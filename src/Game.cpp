@@ -266,7 +266,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
     {
         sscore = 999;
     }
-    birdr = (birdv/10)*2.5;
+    birdr = (birdv/8)*2.5;
     if (birdr >= 1.5)
     {
         birdr = 1.5;
@@ -278,10 +278,14 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         playing = false;
         
         birdPOS += birdv;
-        birdv += 0.010;
-        if (birdv > 0.5)
+        birdv += 0.020;
+        if (birdv > 0.49)
         {
             birdv = -0.5;
+        }
+        if (birdPOS < 112)
+        {
+            birdv+=0.040;
         }
         ybird.Play(3);
         ybird.SetPos(77, birdPOS);
