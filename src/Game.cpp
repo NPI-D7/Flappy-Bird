@@ -161,7 +161,7 @@ void Game::Draw(void) const
     {
         for (int i = 0; i < 2; i++)
         {
-            ground[i].SetPos(ground[i].getPosX() - 0.5, 189);
+            ground[i].SetPos(ground[i].getPosX() - 1, 189);
             if (ground[i].getPosX() == -400)
             {
                 ground[i].SetPos(400, 189);
@@ -266,7 +266,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
     {
         sscore = 999;
     }
-    birdr = (birdv/5)*2.5;
+    birdr = (birdv/10)*2.5;
     if (birdr >= 1.5)
     {
         birdr = 1.5;
@@ -279,9 +279,9 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         
         birdPOS += birdv;
         birdv += 0.010;
-        if (birdv > 0.25)
+        if (birdv > 0.5)
         {
-            birdv = -0.25;
+            birdv = -0.5;
         }
         ybird.Play(3);
         ybird.SetPos(77, birdPOS);
@@ -298,7 +298,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
     if (playing)
     {
         birdPOS += birdv;
-        birdv += 0.052;
+        birdv += 0.1;
         ybird.Play(8);
         ybird.SetPos(77, birdPOS);
         ybird.SetCenter(DEFAULT_CENTER, DEFAULT_CENTER);
@@ -306,7 +306,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         if (hDown & KEY_TOUCH && !hitd)
         {
             fly->play();
-            birdv = -1.1;
+            birdv = -2.2;
         }
         //Colissiob
         for (int i = 0; i < 5; i++)
@@ -344,7 +344,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         board.SetPos((400/2) - (board.getWidth()/2), boardposy);
         timer +=1;
         birdPOS += birdv;
-        birdv += 0.052;
+        birdv += 0.1;
         if (birdPOS > (189 - ybird.getWidth()/2))
         {
             birdPOS = (189 - ybird.getHeigh()/2);
@@ -355,7 +355,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         }
         //if (fixedl)
         //{
-            boardposy-=4;
+            boardposy-=8;
             if (boardposy < (240/2) - (board.getHeigh()/2))
             {
                 boardposy = (240/2) - (board.getHeigh()/2);
