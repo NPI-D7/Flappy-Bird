@@ -183,8 +183,8 @@ void Game::Draw(void) const
                     sscore += 1;
                 }
                 
-                gpipes[p].posx -= 0.5;
-                cpipes[p].posx -= 0.5;
+                gpipes[p].posx -= 1;
+                cpipes[p].posx -= 1;
                 if (gpipes[p].posx < -30)
                 {
                     gpipes[p].posy = rand() % 80 + 65;
@@ -278,12 +278,12 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         playing = false;
         
         birdPOS += birdv;
-        birdv += 0.005;
+        birdv += 0.010;
         if (birdv > 0.25)
         {
             birdv = -0.25;
         }
-        ybird.Play(1.5);
+        ybird.Play(3);
         ybird.SetPos(77, birdPOS);
         timer++;
         if (timer > 10 && hDown & KEY_TOUCH)
@@ -298,8 +298,8 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
     if (playing)
     {
         birdPOS += birdv;
-        birdv += 0.026;
-        ybird.Play(4);
+        birdv += 0.052;
+        ybird.Play(8);
         ybird.SetPos(77, birdPOS);
         ybird.SetCenter(DEFAULT_CENTER, DEFAULT_CENTER);
         ybird.SetRotation(birdr);
@@ -344,7 +344,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch)
         board.SetPos((400/2) - (board.getWidth()/2), boardposy);
         timer +=1;
         birdPOS += birdv;
-        birdv += 0.026;
+        birdv += 0.052;
         if (birdPOS > (189 - ybird.getWidth()/2))
         {
             birdPOS = (189 - ybird.getHeigh()/2);
