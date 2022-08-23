@@ -205,9 +205,9 @@ void Game::Draw(void) const
     {
         for(int p = 0; p < 5; p++)
         {
-            upipe[p].SetPos(gpipes[p].posx, gpipes[p].posy);
+            upipe[p].SetPos((int)gpipes[p].posx, (int)gpipes[p].posy);
             upipe[p].Draw();
-            cpipe[p].SetPos(cpipes[p].posx, cpipes[p].posy);
+            cpipe[p].SetPos((int)cpipes[p].posx, (int)cpipes[p].posy);
             cpipe[p].Draw();
         }
     }
