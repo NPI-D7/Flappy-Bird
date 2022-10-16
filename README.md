@@ -17,5 +17,5 @@
 <img src="https://user-images.githubusercontent.com/71647024/162621632-443d20c7-c848-4ba2-a26d-3a8e94412c20.png" width="300">
 
 # Credits
-devkitpro: for libctru, citro2/3d.
-Dong Nguyen, .Gears: for the Game.
+- devkitpro: for libctru, citro2/3d.
+- Dong Nguyen, .Gears: for the Game.
