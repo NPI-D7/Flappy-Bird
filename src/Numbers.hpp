@@ -1,7 +1,7 @@
 #pragma once
-#include "renderd7.hpp"
+#include "rd7.hpp"
 
-//Defines
+// Defines
 #define NUM_BIG_0 0
 #define NUM_BIG_1 1
 #define NUM_BIG_2 2
@@ -23,9 +23,8 @@
 #define NUM_MIN_8 18
 #define NUM_MIN_9 19
 
-namespace Num
-{
-    void Load();
-    void DrawBig(int x, int y, int num);
-    void DrawMin(int x, int y, int num);
-}
+namespace Num {
+void Load();
+void DrawBig(int x, int y, int num);
+void DrawMin(int x, int y, int num);
+} // namespace Num

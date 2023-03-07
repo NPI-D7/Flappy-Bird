@@ -4,7 +4,8 @@
             "name": "3DS",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/RenderD7/**"
+                "/opt/devkitpro/libctru//include/**",
+                "/opt/devkitpro/portlibs/**"
             ],
             "intelliSenseMode": "gcc-arm",
             

@@ -1,5 +1,4 @@
-class Pipe
-{
-    public:
-    float posx, posy;
+class Pipe {
+public:
+  float posx, posy;
 };

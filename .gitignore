@@ -1,0 +1,8 @@
+build/*
+*.3dsx
+*.smdh
+*.cia
+*.elf
+banner.bin
+*.t3x
+icon.bin

@@ -66,11 +66,9 @@ VERSION_MICRO := 0
 #---------------------------------------------------------------------------------
 TARGET		:=	Flappy-Bird
 BUILD		:=	build
-LIBTWEEN	:=  $(CURDIR)RenderD7/external/tween-engine/
-UNIVCORE	:=	RenderD7 RenderD7/internal RenderD7/external RenderD7/external/tween-engine/include/ RenderD7/external/tween-engine/include/TweenEngine RenderD7/external/tween-engine/source D7-Menu-Core
-SOURCES		:=	$(UNIVCORE) src
+SOURCES		:=	src
 DATA		:=	data
-INCLUDES	:=	$(UNIVCORE) src 
+INCLUDES	:=	src 
 GRAPHICS	:=	gfx
 #GFXBUILD	:=	$(BUILD)
 ROMFS		:=	romfs
@@ -101,13 +99,13 @@ CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++20
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-specs=3dsx.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
 
-LIBS	:= -lcurl -lstdc++ -lm -lcitro2d -lcitro3d -lctru
+LIBS	:= -lrenderd7 -lcurl -lstdc++ -lm -lcitro2d -lcitro3d -lctru
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:= $(PORTLIBS) $(CTRULIB) $(LIBTWEEN)
+LIBDIRS	:= $(PORTLIBS) $(CTRULIB) ../libs
 
 
 #---------------------------------------------------------------------------------
