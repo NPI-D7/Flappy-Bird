@@ -10,7 +10,12 @@ namespace BitmapConverter {
 unsigned decodeBMP(std::vector<unsigned char> &image, unsigned &w, unsigned &h,
                    const std::vector<unsigned char> &bmp);
 
+/// @brief Convert A File
+/// @param filename
+/// @return data
 std::vector<unsigned char> ConvertFile(std::string filename);
-
+/// @brief Convert data
+/// @param data
+/// @return data
 std::vector<unsigned char> ConvertData(std::vector<unsigned char> data);
 } // namespace BitmapConverter

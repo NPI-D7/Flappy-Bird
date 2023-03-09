@@ -44,13 +44,11 @@
 #include <renderd7/stringtool.hpp>
 #include <renderd7/thread.hpp>
 
-extern "C" {
-#include <renderd7/external/fs.h>
-}
-
-#define RENDERD7VSTRING "0.9.0"
+#define RENDERD7VSTRING "0.9.1"
 #define CHANGELOG                                                              \
-  "0.9.0: Remove Stupid try of Console\nAdd Services list and Clean up "       \
+  "0.9.1: Fix Critical bug in Spritesheet animations\nFix Color "              \
+  "Conver(Hex)\n0.9.0: Remove Stupid try of Console\nAdd Services list and "   \
+  "Clean up "                                                                  \
   "Code.\nAlso added Minimal Init for hax2.x\n0.8.5: Fix Deltatime \n0.8.4: "  \
   "A lot of Fixes and new\nFeatures for BitmapPrinter! \n0.8.3: Addet "        \
   "Overlaycount to Info\nand Addet ResultDecoder for errors.\n0.8.2: Fix a "   \
