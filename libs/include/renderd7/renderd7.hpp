@@ -44,14 +44,16 @@
 #include <renderd7/stringtool.hpp>
 #include <renderd7/thread.hpp>
 
-#define RENDERD7VSTRING "0.9.1"
+#define RENDERD7VSTRING "0.9.2"
 #define CHANGELOG                                                              \
-  "0.9.1: Fix Critical bug in Spritesheet animations\nFix Color "              \
+  "0.9.2: Add NpiSplashVideo\nNvid Support(v0.0.1)\nAdd Basic RenderD7 "       \
+  "Splash\nFaster Graphics Init\nFade Effects\nFix Screen for this "           \
+  "Changelog\n0.9.1: Fix Critical bug in\nSpritesheet animations\nFix Color "  \
   "Conver(Hex)\n0.9.0: Remove Stupid try of Console\nAdd Services list and "   \
   "Clean up "                                                                  \
   "Code.\nAlso added Minimal Init for hax2.x\n0.8.5: Fix Deltatime \n0.8.4: "  \
   "A lot of Fixes and new\nFeatures for BitmapPrinter! \n0.8.3: Addet "        \
-  "Overlaycount to Info\nand Addet ResultDecoder for errors.\n0.8.2: Fix a "   \
+  "Overlaycount to Info\nand Addet ResultDecoder for errors.\n\n0.8.2: Fix a " \
   "lot of Stuff and\nadd c++17 based filesystem class.\n0.8.1: Add abillity "  \
   "to Get Stdout as string\nto render it to the screen.\n0.8.0: Implement "    \
   "BitmapPrinter\n0.7.3: Implement Over\nRender Overlay Framework\n0.7.2: "    \
@@ -80,6 +82,8 @@ extern u32 d7_hUp;
 extern touchPosition d7_touch;
 
 extern std::string dspststus;
+
+extern bool rd7_do_splash;
 
 /// RenderD7
 namespace RenderD7 {
@@ -113,10 +117,16 @@ public:
 
 class RSettings : public RenderD7::Scene {
 private:
+  void calculate_screens(const std::vector<std::string> &lines,
+                         int &screen_index, int &screens);
+
   enum RState { RSETTINGS, RINFO, RSERVICES, RCLOG };
   RenderD7::RSettings::RState m_state = RenderD7::RSettings::RState::RSETTINGS;
 
   mutable float txtposy = 30;
+  int screens = 0;
+  int screen_index = 0;
+  std::vector<std::string> lines;
 
   std::string rd7srstate = "false";
   std::string mtovlstate = "false";
@@ -160,6 +170,14 @@ int GetRandomInt(int b, int e);
 void DrawMetrikOvl();
 bool DrawImageFromSheet(RenderD7::Sheet *sheet, size_t index, float x, float y,
                         float scaleX = 1.0, float scaleY = 1.0);
+void DoNpiIntro();
+/// @brief Fade In
+/// @param duration Duration in Frames
+void FadeIn();
+/// @brief Fade Out
+/// @param duration Duration in Frames
+void FadeOut();
+void FadeDisplay();
 namespace Error {
 void DisplayError(std::string toptext, std::string errortext, int timesec = 3);
 void DisplayFatalError(std::string toptext, std::string errortext);
