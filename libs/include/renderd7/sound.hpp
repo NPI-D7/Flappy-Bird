@@ -11,17 +11,20 @@ public:
   /// \param channel the channel 1-23
   /// \param toloop true:loop the sound, false: don't loop
   sound(const std::string &path, int channel = 1, bool toloop = false);
-  /** deconstruct the sound */
+  /// @brief Deconstructor
   ~sound();
-  /** play the sound */
+  /// @brief Play the sound
   void play();
-  /** stop the sound */
+  /// @brief Stop the sound
   void stop();
 
 private:
-  /// \param dataSize the Size of the filedata
+  /// \param dataSize Size of the filedata
   u32 dataSize;
+  /// \param waveBuf For ndsp
   ndspWaveBuf waveBuf;
-  u8 *data = NULL;
+  /// \param data Memmory data of the sound
+  uint8_t *data = NULL;
+  /// \param chnl Channel of the sound
   int chnl;
 };

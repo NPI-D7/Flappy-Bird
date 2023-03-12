@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <fstream>
 #include <iostream>
+#include <memory.h>
 #include <memory>
 #include <renderd7/external/jpgd.h>
 #include <renderd7/external/jpge.h>
@@ -58,37 +59,6 @@ inline bool CheckFrame(NVID_Frame &frame) {
 
   return false;
 }
-
-/*inline std::vector<NVID_Image> LoadNVID(std::string path) {
-  std::vector<NVID_Image> res;
-  NVID_Header t_header;
-  std::ifstream nvid_file2("out.nvid", std::ios::binary | std::ios::in);
-
-  nvid_file2.read((char *)&t_header, sizeof(NVID_Header));
-  if (!CheckHeader(t_header))
-    return res;
-
-  for (int i = 0; i < t_header.framecount; i++) {
-    NVID_Image tmp;
-    NVID_Frame frm;
-    nvid_file2.read((char *)&frm, sizeof(NVID_Frame));
-    if (!CheckFrame(frm)) {
-      return res;
-    }
-    void *pBuf = malloc(frm.framesize);
-    nvid_file2.read((char *)pBuf, frm.framesize);
-    int lw, lh, lc;
-    unsigned char *dat_s = jpgd::decompress_jpeg_image_from_memory(
-        (unsigned char *)pBuf, frm.framesize, &lw, &lh, &lc, 3);
-    tmp.bpp = lc;
-    tmp.w = lw;
-    tmp.h = lh;
-    tmp.framenum = i;
-    tmp.pBuf = dat_s;
-    res.push_back(tmp);
-  }
-  return res;
-}*/
 
 inline std::vector<std::unique_ptr<NVID_Image>>
 LoadNVID(const std::string &path) {
@@ -182,72 +152,71 @@ inline std::vector<std::unique_ptr<NVID_Image>> LoadMemNVID(const void *data,
 
 class NVID_Stream {
 public:
-  NVID_Stream() {}
-  ~NVID_Stream() {}
+  NVID_Stream(const std::string &path)
+      : file_(path, std::ios::binary | std::ios::in) {
+    if (!file_) {
+      std::cout << "Failed to open NVID file: " << path << std::endl;
+      return;
+    } else {
+      file_.read(reinterpret_cast<char *>(&header_), sizeof(header_));
+      if (!CheckHeader(header_)) {
+        std::cout << "Invalid NVID header" << std::endl;
+        return;
+      }
+    }
+  }
 
-  bool Load(const std::string &path) {
-    file.open(path, std::ios::in | std::ios::binary);
-    if (!file) {
-      std::cerr << "Error: failed to open " << path << std::endl;
+  NVID_Stream(const void *data, std::size_t size) {
+    if (!data || size < sizeof(header_)) {
+      std::cout << "Invalid NVID data" << std::endl;
+      return;
+    } else {
+      memcpy(&header_, data, sizeof(header_));
+      if (!CheckHeader(header_)) {
+        std::cout << "Invalid NVID header" << std::endl;
+        return;
+      }
+    }
+  }
+
+  ~NVID_Stream() { file_.close(); }
+
+  bool ReadNext(NVID_Image &image) {
+    if (!file_) {
       return false;
     }
-    file.read(reinterpret_cast<char *>(&t_header), sizeof(NVID_Header));
-    if (!CheckHeader(t_header)) {
-      std::cerr << "Error: invalid NVID file header" << std::endl;
+
+    NVID_Frame frame;
+    file_.read(reinterpret_cast<char *>(&frame), sizeof(frame));
+    if (!CheckFrame(frame)) {
+      std::cout << "Invalid NVID frame" << std::endl;
       return false;
     }
-    currentreg = 0;
+
+    std::vector<uint8_t> compressed_data(frame.framesize);
+    file_.read(reinterpret_cast<char *>(compressed_data.data()),
+               compressed_data.size());
+
+    int width, height, components;
+    unsigned char *decompressed_data = jpgd::decompress_jpeg_image_from_memory(
+        compressed_data.data(), compressed_data.size(), &width, &height,
+        &components, 3);
+    if (!decompressed_data) {
+      std::cout << "Failed to decompress JPEG data" << std::endl;
+      return false;
+    }
+
+    image.bpp = components;
+    image.w = width;
+    image.h = height;
+    image.framenum = current_frame_++;
+    image.pBuf = decompressed_data;
+
     return true;
   }
-
-  void Update() {
-    if (!file) {
-      return;
-    }
-    NVID_Frame frm;
-    file.read(reinterpret_cast<char *>(&frm), sizeof(NVID_Frame));
-    if (!CheckFrame(frm)) {
-      return;
-    }
-    if (frm.framesize > buffer.size()) {
-      buffer.resize(frm.framesize);
-    }
-    file.read(reinterpret_cast<char *>(buffer.data()), frm.framesize);
-    int lw, lh, lc;
-    unsigned char *dat_s = jpgd::decompress_jpeg_image_from_memory(
-        buffer.data(), frm.framesize, &lw, &lh, &lc, 3);
-    if (!dat_s) {
-      std::cerr << "Error: failed to decompress JPEG data" << std::endl;
-      return;
-    }
-    current_frame.bpp = lc;
-    current_frame.w = lw;
-    current_frame.h = lh;
-    current_frame.framenum = currentreg;
-    current_frame.pBuf = dat_s;
-    currentreg++;
-    if (currentreg > (int)t_header.framecount) {
-      file.seekg(sizeof(NVID_Header));
-      currentreg = 0;
-    }
-  }
-
-  NVID_Image GetImage() const { return current_frame; }
 
 private:
-  bool CheckHeader(const NVID_Header &header) const {
-    // TODO: implement header validation logic
-    return true;
-  }
-
-  bool CheckFrame(const NVID_Frame &frame) const {
-    // TODO: implement frame validation logic
-    return true;
-  }
-
-  NVID_Image current_frame;
-  NVID_Header t_header;
-  int currentreg = 0;
-  std::ifstream file;
-  std::vector<unsigned char> buffer;
+  std::ifstream file_;
+  NVID_Header header_;
+  int current_frame_ = 0;
 };

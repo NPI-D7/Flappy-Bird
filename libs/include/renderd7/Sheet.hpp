@@ -3,19 +3,20 @@
 #include <citro3d.h>
 
 namespace RenderD7 {
-/** The Spritesheet Class */
+/// @brief SpriteSheet Class
 class Sheet {
 public:
-  /// Construct sheet
+  /// @brief Constructor
   Sheet();
-  // Deconstruct sheet
+  /// @brief Deconstructor
   ~Sheet();
-  /// Load a Sritesheet
-  /// \param path Path to the Spritesheet (.t3x)
+  /// @brief Load A Spritesheet File
+  /// @param path Path to the t3x
+  /// @return Result Code
   Result Load(const char *path);
-  /// Unload the Spritesheet
+  /// @brief Unload the Sheet
   void Free();
-  /// The Spritesheet
+  /// \param spritesheet The Sheet
   C2D_SpriteSheet spritesheet;
 };
 } // namespace RenderD7

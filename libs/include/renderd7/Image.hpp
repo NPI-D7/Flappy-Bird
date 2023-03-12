@@ -16,9 +16,11 @@ namespace RenderD7 {
 /// Image Class
 class Image {
 public:
+  /// @brief Constructor
   Image() {}
+  /// @brief Deconstructor
   ~Image();
-
+  /// @brief Unload The Image
   void Unload();
   /// Load Image from Png
   /// \param path path to png file

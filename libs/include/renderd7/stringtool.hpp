@@ -4,6 +4,10 @@
 #include <string>
 
 namespace RenderD7 {
+/// @brief Check if A String ends with
+/// @param name Input String
+/// @param extensions Extensions to Check for
+/// @return Ends with or not
 inline bool NameIsEndingWith(const std::string &name,
                              const std::vector<std::string> &extensions) {
   if (name.substr(0, 2) == "._")
@@ -24,6 +28,7 @@ inline bool NameIsEndingWith(const std::string &name,
   return false;
 }
 } // namespace RenderD7
+
 template <class T> T GetFileName(T const &path, T const &delims = "/\\") {
   return path.substr(path.find_last_of(delims) + 1);
 }

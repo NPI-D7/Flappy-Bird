@@ -145,10 +145,10 @@ void Game::Draw(void) const {
 
   if (menu) {
     plays.Draw();
-    // RenderD7::Draw::Text(RenderD7::GetTextWidth(0.4f, "(c) .GEARS 2013,
-    // NPI-D7 2022"), 240 - RenderD7::GetTextHeight(0.4f, "(c) .GEARS 2013,
-    // NPI-D7 2022"), 0.4f, RenderD7::Color::Hex("#eeeeee"), "(c) .GEARS 2013,
-    // NPI-D7 2022");
+    // RenderD7::Draw::TextCentered(0,
+    //     240 - RenderD7::Draw::GetTextHeight(0.7f, "(c) .GEARS 2013, NPI-D7
+    //     2022"), 0.7f, RenderD7::Color::Hex("#eeeeee"), "(c) .GEARS 2013,
+    //     NPI-D7 2022", 400);
   }
   if (!tot) {
     for (int i = 0; i < 2; i++) {
@@ -285,11 +285,11 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch) {
     }
     // Colissiob
     for (int i = 0; i < 5; i++) {
-      if (((birdPOS - ybird.getHeigh() / 2) < cpipes[i].posy) &&
+      if (((birdPOS - ybird.getHeight() / 2) < cpipes[i].posy) &&
               (77 + ybird.getWidth() / 2) > cpipes[i].posx &&
               (77 - ybird.getWidth() / 2) <
                   (cpipes[i].posx + cpipe[i].getWidth()) ||
-          ((birdPOS + ybird.getHeigh() / 2) > gpipes[i].posy) &&
+          ((birdPOS + ybird.getHeight() / 2) > gpipes[i].posy) &&
               (77 + ybird.getWidth() / 2) > gpipes[i].posx &&
               (77 - ybird.getWidth() / 2) <
                   (gpipes[i].posx + upipe[i].getWidth())) {
@@ -306,7 +306,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch) {
         hit->play();
       if (!hitd)
         die->play();
-      birdPOS = (189 - ybird.getHeigh() / 2);
+      birdPOS = (189 - ybird.getHeight() / 2);
       playing = false;
       boardposy = 240;
       tot = true;
@@ -324,7 +324,7 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch) {
     birdPOS += birdv;
     birdv += 0.1;
     if (birdPOS > (189 - ybird.getWidth() / 2)) {
-      birdPOS = (189 - ybird.getHeigh() / 2);
+      birdPOS = (189 - ybird.getHeight() / 2);
     }
     if (timer > 60) {
       fixedl = true;
@@ -332,10 +332,10 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch) {
     // if (fixedl)
     //{
     boardposy -= 8;
-    if (boardposy < (240 / 2) - (board.getHeigh() / 2)) {
-      boardposy = (240 / 2) - (board.getHeigh() / 2);
+    if (boardposy < (240 / 2) - (board.getHeight() / 2)) {
+      boardposy = (240 / 2) - (board.getHeight() / 2);
     }
-    if (hDown & KEY_TOUCH && boardposy == (240 / 2) - (board.getHeigh() / 2)) {
+    if (hDown & KEY_TOUCH && boardposy == (240 / 2) - (board.getHeight() / 2)) {
       for (int p = 0; p < 5; p++) {
         cpipe[p].SetCenter(0, 1.0);
         gpipes[p].posx = 86 * p + 400;
@@ -358,6 +358,5 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch) {
       hitd = false;
       tot = false;
     }
-    // }
   }
 }
