@@ -1,10 +1,8 @@
 #pragma once
-#include <3ds.h>
+/// c++ Includes
 #include <algorithm>
-#include <citro2d.h>
-#include <citro3d.h>
+#include <codecvt>
 #include <cstring>
-#include <dirent.h>
 #include <filesystem>
 #include <functional>
 #include <iostream>
@@ -13,22 +11,30 @@
 #include <memory>
 #include <random>
 #include <stack>
-#include <stdio.h>
 #include <string>
+#include <vector>
+/// c includes
+#include <dirent.h>
+#include <stdio.h>
 #include <sys/stat.h>
 #include <time.h>
 #include <unistd.h>
-#include <vector>
-
-#include <codecvt>
-
+/// 3ds Includes
+#include <3ds.h>
+#include <citro2d.h>
+#include <citro3d.h>
+/// RenderD7 Includes
 #include <renderd7/BitmapPrinter.hpp>
 #include <renderd7/Color.hpp>
 #include <renderd7/Draw.hpp>
+#include <renderd7/FunctionTrace.hpp>
+#include <renderd7/Hardware.hpp>
 #include <renderd7/Image.hpp>
+#include <renderd7/Memory.hpp>
 #include <renderd7/Ovl.hpp>
 #include <renderd7/ResultDecoder.hpp>
 #include <renderd7/Screen.hpp>
+#include <renderd7/Security.hpp>
 #include <renderd7/Sheet.hpp>
 #include <renderd7/Sprite.hpp>
 #include <renderd7/SpriteAnimation.hpp>
@@ -44,9 +50,14 @@
 #include <renderd7/stringtool.hpp>
 #include <renderd7/thread.hpp>
 
-#define RENDERD7VSTRING "0.9.3"
+#define RENDERD7VSTRING "0.9.4"
 #define CHANGELOG                                                              \
-  "0.9.3: Completly Documanted Everything\nFix typo in "                       \
+  "0.9.4: Implement new Security System\n To prevent from crashes\nImplement " \
+  "Functiontrace for better\nTiming Tests\nImplement MemAlloc Tracker (only "  \
+  "size)\nAdd some new Overlays (not functional yet)\nComplete Rewrite of "    \
+  "Overlay System\nFixed the FrameEnd Crash\nNew System to get Hardware "      \
+  "Info\nRemoved RD7SR\n0.9.3: Completly Documanted Everything\nFix typo "     \
+  "in "                                                                        \
   "Sprite::getHeight()\nRemove Deprecated/Useless Stuff\n0.9.2: Add "          \
   "NpiSplashVideo\nNvid Support(v0.0.1)\nAdd "                                 \
   "Basic RenderD7 "                                                            \
@@ -74,7 +85,10 @@
   "Filesystem and Bugs!\n0.3.0: Recreate D7-Core into RenderD7!\n0.2.0: "      \
   "Trying to create Animations of\nImages instead of Sheets!\n0.1.0: Initial " \
   "Release of\nD7-Core sprite animation plugin!"
+
 #define DEFAULT_CENTER 0.5f
+
+#define RD7_DEPRECATED // __attribute__ ((deprecated))
 
 /// @param d7_hDown Current Key Down
 extern u32 d7_hDown;
@@ -90,6 +104,8 @@ extern std::string dspststus;
 
 /// @param rd7_do_splash Config Value To Enable RenderD7 Splash
 extern bool rd7_do_splash;
+/// @param rd7_enable_memtrack Config Value to Track Mem Allocations
+extern bool rd7_enable_memtrack;
 
 /// RenderD7
 namespace RenderD7 {
@@ -112,8 +128,6 @@ struct TObject {
   int w;                 ///< Button Width
   int h;                 ///< Button Height
   std::string text = ""; ///< Text
-  float correctx = 0;    ///< Correct X Position
-  float correcty = 0;    ///< Correct Y Position
   float txtsize = 0.7f;  ///< Set Text Size
 };
 /// @brief Scene Class
@@ -157,7 +171,16 @@ private:
   void calculate_screens(const std::vector<std::string> &lines,
                          int &screen_index, int &screens);
   /// @brief State (Define for Menus)
-  enum RState { RSETTINGS, RINFO, RSERVICES, RCLOG };
+  enum RState {
+    RSETTINGS,
+    RINFO,
+    RSERVICES,
+    RCLOG,
+    RMCONFIG,
+    RFTRACE,
+    RSECM,
+    RCREDITS
+  };
   /// @param m_state Current menu State (Default=MainMenu aka RSETTINGS)
   RenderD7::RSettings::RState m_state = RenderD7::RSettings::RState::RSETTINGS;
 
@@ -167,26 +190,20 @@ private:
   int screen_index = 0;
   /// @param lines Vector of Changelog-Lines
   std::vector<std::string> lines;
+  /// @brief Position in FTrace Menu
+  int ftrace_index = 0;
 
-  /// @param rd7srstate State of RenderD7 Super Reselution
-  std::string rd7srstate = "false";
   /// @param mtovlstate State of Metricks Overlay
   std::string mtovlstate = "false";
-  /// @param fpsstate Value of Forced Framerate
-  std::string fpsstate = "60";
   /// @param mtscreenstate Screen the Overlay is Set to
   std::string mtscreenstate = "Top";
 
   /// @param buttons Vector of Buttons
   std::vector<RenderD7::TObject> buttons = {
-      {20, 35, 120, 35, "RD7SR", -8, 10},
-      {20, 85, 120, 35, "Changelog", -24, 11},
-      {20, 135, 120, 35, "Metrik-Ovl", -23, 10},
-      {20, 185, 120, 35, "NOTYET", -13, 10},
-      {180, 35, 120, 35, "MTSCREEN", -27, 10},
-      {180, 85, 120, 35, "NOTYET", -13, 10},
-      {180, 135, 120, 35, "INFO", 2, 10},
-      {180, 185, 120, 35, "Services", -13, 10}};
+      {20, 35, 120, 35, "NotYET"},      {20, 85, 120, 35, "Changelog"},
+      {20, 135, 120, 35, "Metrik-Ovl"}, {20, 185, 120, 35, "Tasks"},
+      {180, 35, 120, 35, "FTrace"},     {180, 85, 120, 35, "Credits"},
+      {180, 135, 120, 35, "Info"},      {180, 185, 120, 35, "Security"}};
 
 public:
   /// @brief Constructor
@@ -229,6 +246,14 @@ private:
 /// @param e To
 /// @return Random Int
 int GetRandomInt(int b, int e);
+/// @brief Short a String with (..,)
+/// @param in Input string
+/// @param size Size of Input Text
+/// @param maxlen Max length of texr
+/// @param font Custom Font for Correct Size Calculation
+/// @return Shorted String
+std::string ShortString(std::string in, float size, int maxlen,
+                        C2D_Font font = nullptr);
 /// @brief DrawMetrikOvl (YOUR OWN RISK)
 void DrawMetrikOvl();
 /// @brief Draw Image from RenderD7 Sheet
@@ -282,17 +307,6 @@ void Graphics();
 void NdspFirm();
 } // namespace Init
 
-namespace Exit {
-/// @brief Exit Default RenderD7
-void Main();
-/// @brief Exit Minimal RenderD7
-void Minimal();
-/// @brief Exit Ndsp
-void NdspFirm();
-/// @brief DEPRECATED Exit Graphics
-void Graphics();
-} // namespace Exit
-
 namespace Msg {
 /// @brief Display A Message
 /// @param titletxt Header Text
@@ -325,13 +339,6 @@ inline int StringtoInt(std::string inp) { return std::atoi(inp.c_str()); }
 inline bool FloatToBool(float inp) { return (inp == 1 ? true : false); }
 } // namespace Convert
 
-/// @brief DEPRECATED DirContent
-struct DirContent {
-  std::string name; ///< Content Name
-  std::string path; ///< Content Path
-  bool isDir;       ///< Is Directory
-};
-
 namespace FS {
 /// @brief Check if File exists
 /// @param path Path to the File
@@ -342,8 +349,6 @@ bool FileExist(const std::string &path);
 /// @brief Check if Ndsp is Init
 /// @return is or not
 bool IsNdspInit();
-/// @brief Setup RenderD7 Logs
-void SetupLog(void);
 /// @brief Get Current Framerate as String
 /// @return Framerate String
 std::string GetFramerate();
@@ -366,11 +371,6 @@ std::string Kbd(int lenght, SwkbdType tp);
 /// @brief Draw Overlays And end the Frame. DO NEVER USE C3D_FRAMEEND cause it
 /// breaks Overlay crash Security
 void FrameEnd();
-/// @brief Enable/Disable RenderD7 Super Reselution
-void ToggleRD7SR();
-/// @brief Check if RD7SR is Enabled
-/// @return is or not
-bool IsRD7SR();
 
 /// @brief Textless Button
 struct TLBtn {
@@ -417,14 +417,4 @@ void DrawTLBtns(std::vector<RenderD7::TLBtn> btns, u32 color,
                 int selection = -1,
                 u32 selbgcolor = RenderD7::Color::Hex("#2D98AF"),
                 u32 selcolor = RenderD7::Color::Hex("#000000"));
-
-/// @brief DEPRECATED USE RenderD7::FileSystem
-/// @param dircontent Vector of Content output
-/// @param extensions Extensions
-void GetDirContentsExt(std::vector<RenderD7::DirContent> &dircontent,
-                       const std::vector<std::string> &extensions);
-/// @brief DEPRECATED USE RenderD7::FileSystem
-/// @param dircontent Vector of Content output
-void GetDirContents(std::vector<RenderD7::DirContent> &dircontent);
-
 } // namespace RenderD7

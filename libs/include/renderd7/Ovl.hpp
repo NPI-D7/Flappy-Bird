@@ -21,7 +21,10 @@ private:
   /// @param iskilled For IsKilled();
   bool iskilled = false;
 };
-/// @brief Add an Overlay to the stack
-/// @param scene Overlay to push to Stack
+/// @brief Add an Overlay to the Screen
+/// @param scene Overlay to push to Screen
 void AddOvl(std::unique_ptr<RenderD7::Ovl> scene);
+/// @brief Add an Overlay to the Toast Stack
+/// @param scene Overlay to push to Toast Stack
+void AddToast(std::unique_ptr<RenderD7::Ovl> scene);
 } // namespace RenderD7

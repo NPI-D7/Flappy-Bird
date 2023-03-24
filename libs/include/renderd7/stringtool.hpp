@@ -1,6 +1,7 @@
 #pragma once
 #include <iomanip>
 #include <iostream>
+#include <sstream>
 #include <string>
 
 namespace RenderD7 {
@@ -26,6 +27,41 @@ inline bool NameIsEndingWith(const std::string &name,
   }
 
   return false;
+}
+/// @brief Format Milliseconds to clean string (Stolen from one of my Mc
+/// Plugins)
+/// @param t_time Time in ms
+/// @return String
+inline std::string MsTimeFmt(float t_time) {
+  std::ostringstream oss;
+
+  if (t_time < 0.001f) {
+    oss << std::fixed << std::setprecision(2) << t_time * 1000.0f << "ns";
+  } else if (t_time < 1.0f) {
+    oss << std::fixed << std::setprecision(2) << t_time << "ms";
+  } else if (t_time < 60000.0f) {
+    int seconds = static_cast<int>(t_time / 1000.0f);
+    float milliseconds = t_time - (seconds * 1000.0f);
+
+    if (seconds > 0) {
+      oss << seconds << "s ";
+    }
+    oss << std::fixed << std::setprecision(2) << milliseconds << "ms";
+  } else {
+    int minutes = static_cast<int>(t_time / 60000.0f);
+    int seconds = static_cast<int>((t_time - (minutes * 60000.0f)) / 1000.0f);
+    float milliseconds = t_time - (minutes * 60000.0f) - (seconds * 1000.0f);
+
+    oss << minutes << "m ";
+    if (seconds > 0 || milliseconds > 0.0f) {
+      oss << seconds << "s ";
+    }
+    if (milliseconds > 0.0f) {
+      oss << std::fixed << std::setprecision(2) << milliseconds << "ms";
+    }
+  }
+
+  return oss.str();
 }
 } // namespace RenderD7
 

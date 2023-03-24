@@ -237,9 +237,9 @@ void Game::Draw(void) const {
                                "Press Start to Exit", 320);
 }
 void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch) {
-  if (hHeld & KEY_L && hHeld & KEY_R) {
+  /*if (hHeld & KEY_L && hHeld & KEY_R) {
     RenderD7::LoadSettings();
-  }
+  }*/
   if (sscore >= 999) {
     sscore = 999;
   }
