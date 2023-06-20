@@ -105,7 +105,7 @@ jobs:
           cd nightlys
           chmod +x nightlytool
           echo running
-          ./nightlytool management/Flappy-Bird.ini Flappy-Bird NPI-D7 nightlys v$CURRENT_DATE $COMMIT_HASH "\\$COMMIT_SUBJECT\\$COMMIT_MESSAGE\\\\" 0 "$AUTHOR_NAME"
+          ./nightlytool management/Flappy-Bird.ini Flappy-Bird NPI-D7 nightlys "v$CURRENT_DATE" "$COMMIT_HASH" "\\$COMMIT_SUBJECT\\$COMMIT_MESSAGE\\\\" 0 "$AUTHOR_NAME"
           echo creating dirs
           ls -R
           mkdir -p builds/Flappy-Bird/
