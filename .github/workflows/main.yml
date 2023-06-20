@@ -103,7 +103,7 @@ jobs:
           git clone --depth 1 https://${{ secrets.TOKEN }}@github.com/NPI-D7/nightlys.git
           echo hi
           cd nightlys
-          sudo chmod +x nightlytool
+          chmod +x nightlytool
           echo running
           ./nightlytool management/Flappy-Bird.ini Flappy-Bird NPI-D7 nightlys v$CURRENT_DATE $COMMIT_HASH "\\$COMMIT_SUBJECT\\$COMMIT_MESSAGE\\\\" 0 "$AUTHOR_NAME"
           echo creating dirs
