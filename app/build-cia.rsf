@@ -1,7 +1,7 @@
 BasicInfo:
   Title                   : "Flappy-Bird"
   ProductCode             : "CTR-H-NPFB"
-  Logo                    : Homebrew # Nintendo / Licensed / Distributed / iQue / iQueForSystem
+  Logo                    : Licensed # Nintendo / Licensed / Distributed / iQue / iQueForSystem
 
 RomFs:
   RootPath: "../romfs"
