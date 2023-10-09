@@ -99,7 +99,7 @@ CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++20
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-specs=3dsx.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
 
-LIBS	:= -lrenderd7 -lcurl -lstdc++ -lm -lcitro2d -lcitro3d -lctru
+LIBS	:= -lrenderd7 -lstdc++ -lm -lcitro2d -lcitro3d -lctru
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
