@@ -1,0 +1,49 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/Flappy-Bird.elf",
+            "targetArchitecture": "arm",
+            "serverLaunchTimeout": 10000,
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:\\devkitPro\\devkitARM\\bin\\arm-none-eabi-gdb.exe",
+            "miDebuggerServerAddress": "192.168.2.220:4003",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing",
+                    "text": "file ${workspaceFolder}/Flappy-Bird.elf -enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }, 
+        {
+            "name": "(gdb-emu) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/Flappy-Bird.elf",
+            "targetArchitecture": "arm",
+            "serverLaunchTimeout": 10000,
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:\\devkitPro\\devkitARM\\bin\\arm-none-eabi-gdb.exe",
+            "miDebuggerServerAddress": "localhost:4003",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing",
+                    "text": "file ${workspaceFolder}/Flappy-Bird.elf -enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}
