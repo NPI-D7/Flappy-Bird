@@ -13,9 +13,7 @@
 ![Gover](https://user-images.githubusercontent.com/71647024/162621226-3b254304-3fc5-411f-8753-42993771c9cd.png)
 </details>
 
-# QR-Code
-<img src="https://user-images.githubusercontent.com/71647024/162621632-443d20c7-c848-4ba2-a26d-3a8e94412c20.png" width="300">
-
 # Credits
+- [Zachary-Rude](https://github.com/Zachary-Rude): Change Homebrew Logo to Licensed (Looks more like a 3rd party game)
 - devkitpro: for libctru, citro2/3d.
 - Dong Nguyen, .Gears: for the Game.
