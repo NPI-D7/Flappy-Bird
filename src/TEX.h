@@ -1,3 +1,5 @@
+#pragma once
+
 #define STUFF_BGD 0
 #define STUFF_BGN 1
 #define STUFF_GAMEOVER 2

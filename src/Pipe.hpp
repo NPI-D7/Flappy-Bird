@@ -1,4 +1,5 @@
-class Pipe {
-public:
+#pragma once
+
+struct Pipe {
   float posx, posy;
 };

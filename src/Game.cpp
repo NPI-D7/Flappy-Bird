@@ -1,9 +1,12 @@
 #include "Game.hpp"
+
+#include <time.h>
+
+#include <renderd7/sound.hpp>
+
 #include "Numbers.hpp"
 #include "Pipe.hpp"
 #include "TEX.h"
-#include <renderd7/sound.hpp>
-#include <time.h>
 
 RenderD7::Sheet stuffs;
 RenderD7::Sheet ybirds;
@@ -48,45 +51,28 @@ sound *hit = NULL;
 sound *swoosh = NULL;
 
 int bgrr = 0;
-
-int LoadHighScore() {
-  FILE *scorefile = fopen("sdmc:/Flappy-Bird.bin", "rb");
-
-  if (!scorefile)
-    return 0;
-
-  int ret;
-  fread(&ret, sizeof(int), 1, scorefile);
-  fclose(scorefile);
-
-  return ret;
-}
-int best = LoadHighScore();
-void SaveHighScore(int val) {
-  FILE *scorefile = fopen("sdmc:/Flappy-Bird.bin", "wb");
-
-  fwrite(&val, sizeof(int), 1, scorefile);
-  fclose(scorefile);
-}
+int best = 0;
 
 int birdt = 0;
 Game::Game() {
   srand(time(NULL));
+  score.load("sdmc:/RenderD7/Apps/Flappy-Bird/score.dat");
+  best = score.get();
   stuffs.Load("romfs:/gfx/stuff.t3x");
   birdt = rand() % 3 + 0;
   switch (birdt) {
-  case 0:
-    ybirds.Load("romfs:/gfx/ybird.t3x");
-    break;
-  case 1:
-    ybirds.Load("romfs:/gfx/bbird.t3x");
-    break;
-  case 2:
-    ybirds.Load("romfs:/gfx/rbird.t3x");
-    break;
-  default:
-    ybirds.Load("romfs:/gfx/ybird.t3x");
-    break;
+    case 0:
+      ybirds.Load("romfs:/gfx/ybird.t3x");
+      break;
+    case 1:
+      ybirds.Load("romfs:/gfx/bbird.t3x");
+      break;
+    case 2:
+      ybirds.Load("romfs:/gfx/rbird.t3x");
+      break;
+    default:
+      ybirds.Load("romfs:/gfx/ybird.t3x");
+      break;
   }
 
   bgn.FromSheet(&stuffs, STUFF_BGN);
@@ -106,8 +92,6 @@ Game::Game() {
     die = new sound("romfs:/sfx/die.wav", 3);
     hit = new sound("romfs:/sfx/hit.wav", 4);
     swoosh = new sound("romfs:/sfx/swoosh.wav", 5);
-  }
-  { /* code */
   }
   bgrr = rand() % 2 + 0;
   Num::Load();
@@ -135,13 +119,12 @@ Game::Game() {
 Game::~Game() {
   stuffs.Free();
   ybirds.Free();
+  score.save();
 }
 void Game::Draw(void) const {
   RenderD7::OnScreen(Top);
-  if (bgrr == 0)
-    bgn.Draw();
-  if (bgrr != 0)
-    bgd.Draw();
+  if (bgrr == 0) bgn.Draw();
+  if (bgrr != 0) bgd.Draw();
 
   if (menu) {
     plays.Draw();
@@ -209,24 +192,24 @@ void Game::Draw(void) const {
     }
 
     switch (sscore) {
-    case 10 ... 19:
-      medalbronze.SetPos(board.getPosX() + 20, boardposy + 32);
-      medalbronze.Draw();
-      break;
-    case 20 ... 29:
-      medalsilver.SetPos(board.getPosX() + 20, boardposy + 32);
-      medalsilver.Draw();
-      break;
-    case 30 ... 39:
-      medalgold.SetPos(board.getPosX() + 20, boardposy + 32);
-      medalgold.Draw();
-      break;
-    case 40 ... 999:
-      medalplatin.SetPos(board.getPosX() + 20, boardposy + 32);
-      medalplatin.Draw();
-      break;
-    default:
-      break;
+      case 10 ... 19:
+        medalbronze.SetPos(board.getPosX() + 20, boardposy + 32);
+        medalbronze.Draw();
+        break;
+      case 20 ... 29:
+        medalsilver.SetPos(board.getPosX() + 20, boardposy + 32);
+        medalsilver.Draw();
+        break;
+      case 30 ... 39:
+        medalgold.SetPos(board.getPosX() + 20, boardposy + 32);
+        medalgold.Draw();
+        break;
+      case 40 ... 999:
+        medalplatin.SetPos(board.getPosX() + 20, boardposy + 32);
+        medalplatin.Draw();
+        break;
+      default:
+        break;
     }
     gameovre.Draw();
   }
@@ -251,15 +234,11 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch) {
   if (menu) {
     playing = false;
 
-    if (!iv_pos)
-      birdPOS += 0.35;
-    if (iv_pos)
-      birdPOS -= 0.35;
+    if (!iv_pos) birdPOS += 0.35;
+    if (iv_pos) birdPOS -= 0.35;
     // birdv += 0.020;
-    if (birdPOS > 112.5 + 5)
-      iv_pos = true;
-    if (birdPOS < 112.5 - 5)
-      iv_pos = false;
+    if (birdPOS > 112.5 + 5) iv_pos = true;
+    if (birdPOS < 112.5 - 5) iv_pos = false;
 
     ybird.Play(3);
     ybird.SetPos(77, birdPOS);
@@ -295,17 +274,15 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch) {
                   (gpipes[i].posx + upipe[i].getWidth())) {
         hit->play();
         die->play();
-        boardposy = 4000; // As far away as possible
+        boardposy = 4000;  // As far away as possible
         hitd = true;
         tot = true;
       }
     }
 
     if (birdPOS > (189 - ybird.getWidth() / 2)) {
-      if (!hitd)
-        hit->play();
-      if (!hitd)
-        die->play();
+      if (!hitd) hit->play();
+      if (!hitd) die->play();
       birdPOS = (189 - ybird.getHeight() / 2);
       playing = false;
       boardposy = 240;
@@ -313,11 +290,11 @@ void Game::Logic(u32 hDown, u32 hHeld, u32 hUp, touchPosition touch) {
     }
   }
   if (tot) {
-
     if (sscore > best) {
       newbest = true;
       best = sscore;
-      SaveHighScore(best);
+      score.set(best);
+      score.save();
     }
     board.SetPos((400 / 2) - (board.getWidth() / 2), boardposy);
     timer += 1;

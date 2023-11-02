@@ -27,4 +27,4 @@ namespace Num {
 void Load();
 void DrawBig(int x, int y, int num);
 void DrawMin(int x, int y, int num);
-} // namespace Num
+}  // namespace Num
