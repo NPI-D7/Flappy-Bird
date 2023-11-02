@@ -2,7 +2,7 @@
 #include "TEX.h"
 
 int main() {
-  rd7_do_splash = true;
+  rd7_do_splash = false;
   RenderD7::Init::Main("Flappy-Bird");
   RenderD7::Init::NdspFirm();
   RenderD7::FadeIn();

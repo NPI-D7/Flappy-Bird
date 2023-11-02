@@ -36,8 +36,8 @@ include $(DEVKITARM)/3ds_rules
 # External tools
 #---------------------------------------------------------------------------------
 ifeq ($(OS),Windows_NT)
-MAKEROM 	?= C:/Users/zacha/Desktop/makerom.exe
-BANNERTOOL 	?= C:/Users/zacha/bannertool.exe
+MAKEROM 	?= C:/devkitpro/tools/bin/makerom.exe
+BANNERTOOL 	?= C:/devkitpro/tools/bin/bannertool.exe
 
 else
 MAKEROM 	?= makerom
