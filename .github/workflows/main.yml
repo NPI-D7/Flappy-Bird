@@ -30,12 +30,13 @@ jobs:
       - name: Install tools
         run: |
           sudo apt-get update
-          sudo apt-get install p7zip-full g++ -y
-          curl -L https://github.com/NPI-D7/bannertool/releases/download/v1.2.0/linux.zip -o bannertool.zip
-          sudo 7z e bannertool.zip amd64/bannertool
-          sudo chmod +x bannertool
-          mv bannertool /usr/local/bin
-          rm bannertool.zip
+          sudo apt-get install p7zip-full g++ cmake -y
+          git clone https://github.com/NPI-D7/bannertool
+          cd bannertool
+          cmake -B build
+          cmake --build build -j4
+          mv -v build/bannertool /usr/local/bin/
+          cd ..
           curl -L https://github.com/3DSGuy/Project_CTR/releases/download/makerom-v0.17/makerom-v0.17-ubuntu_x86_64.zip -o makerom-v0.17-ubuntu_x86_64.zip
           sudo 7z e makerom-v0.17-ubuntu_x86_64.zip
           sudo chmod +x makerom
